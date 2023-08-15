@@ -1,3 +1,16 @@
 <% layout("./layouts/layout.eta") %>
 
-<h1>Hello world!</h1>
+<h1>Topics Quiz!</h1>
+
+<p> This is a web application where one can create questions for available topics, and answer questions in said topics as well. </p>
+
+
+ <% if (it.topicsCount > 0) { %>
+    <h2> Number of topics: <%= it.topicsCount %></h2>
+    <h2> Number of questions: <%= it.questionsCount %></h2>
+    <h2> Number of answers: <%= it.answersCount %></h2>
+
+
+  <% } else {%>
+    <h2>No topics yet.</h2>
+    <% }%>
