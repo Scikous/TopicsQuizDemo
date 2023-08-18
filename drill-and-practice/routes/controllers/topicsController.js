@@ -1,3 +1,5 @@
+import * as userService from "../../services/userService.js";
+
 const dummyData = {
     topics: [
       { name: "zxs 1", id: 1 },
@@ -6,10 +8,17 @@ const dummyData = {
       // Add more topics as needed
     ]
   };
-  const showTopics = ({ render }) => {
-  
+  const showTopics = async ({ render }) => {
+    const admin = await userService.getAdmin();
+    console.log(admin);
+    dummyData["admin"] = false //admin[0].admin;
     render("topics.eta", dummyData);
   };
+
+  const showTopic = ({ render }) => {
   
-  export { showTopics };
+    render("topic.eta");
+  };
+  
+  export { showTopics, showTopic };
   

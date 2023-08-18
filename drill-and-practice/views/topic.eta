@@ -1,0 +1,9 @@
+<% layout("./layouts/layout.eta") %>
+
+<h1>Topic!</h1>
+
+
+<form method="POST" action="/">
+Question description:<br/>
+<textarea name="question_text"></textarea><br/>
+</form>%

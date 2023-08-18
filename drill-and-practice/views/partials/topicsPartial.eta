@@ -1,0 +1,7 @@
+<ul>
+<% it.topics.forEach((topic) => {%>
+    <li>
+    <h3><a href="topics/<%= topic.id %>"> <%= topic.name %></a></h3>
+    </li>
+<%}); %>
+</ul>

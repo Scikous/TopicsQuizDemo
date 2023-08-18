@@ -8,7 +8,7 @@
     </head>
 
     <body>
-    <%~ includeFile("./partials/navbar.eta") %>
+    <%~ includeFile("./partials/navbarPartial.eta") %>
     <%~ it.body %>
   </body>
 </html>

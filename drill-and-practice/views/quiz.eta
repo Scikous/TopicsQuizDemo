@@ -1,0 +1,4 @@
+<% layout("./layouts/layout.eta") %>
+<%~ includeFile("./partials/topicsPartial.eta", {topics: it.topics}) %>
+
+<h1>Quiz!</h1>
