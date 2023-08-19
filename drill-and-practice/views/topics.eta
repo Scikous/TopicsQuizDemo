@@ -2,11 +2,22 @@
 
 <h1>Topics!</h1>
 
-<% if (it.admin) { %>
-    <form method="POST" action="/chores">
+<% if (it.user && it.user.admin) { %>
+    <% if (it.errors) { %>
+    <ul>
+        <% Object.keys(it.errors).forEach((attribute) => { %>
+            <% Object.values(it.errors[attribute]).forEach((err) => { %>
+                <li><%= err %></li>
+            <% }); %>
+        <% }); %>
+    </ul>
+    <% } %>
+
+    <form method="POST" action="/topics">
     Topic title:<br/>
-    <input type="text" name="name" /><br/>
+    <input type="text" name="name" value="<%= it.name ? it.name: "" %>" /><br/>
     <input type="submit" value="Add"/>
     </form>
 <% } %>
+
 <%~ includeFile("./partials/topicsPartial.eta", {topics: it.topics}) %>

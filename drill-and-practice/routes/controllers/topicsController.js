@@ -1,4 +1,7 @@
 import * as userService from "../../services/userService.js";
+import * as topicsService from "../../services/topicsService.js";
+import { validasaur } from "../../deps.js";
+import {topicExists} from "../../services/validateService.js";
 
 const dummyData = {
     topics: [
@@ -8,17 +11,45 @@ const dummyData = {
       // Add more topics as needed
     ]
   };
-  const showTopics = async ({ render }) => {
-    const admin = await userService.getAdmin();
-    console.log(admin);
-    dummyData["admin"] = false //admin[0].admin;
-    render("topics.eta", dummyData);
-  };
+const showTopics = async ({ render, state }) => {
+  const admin = await userService.getAdmin();
+  await state.session.set("user", admin[0]);
 
-  const showTopic = ({ render }) => {
-  
-    render("topic.eta");
-  };
-  
-  export { showTopics, showTopic };
-  
+  render("topics.eta", dummyData);
+};
+
+const postTopicForm = async ({request, response, render, user}) =>{
+
+  try{
+    if (user.admin){
+      const body = request.body();
+      const params = await body.value;
+    
+      const topic = params.get('name');
+    
+    
+      const exists = await topicExists(topic);
+      const [passes, errors] = await validasaur.validate({topic: topic}, {topic: [validasaur.minLength(1),validasaur.required]});
+      if(!passes || exists){
+        if(exists){
+          errors.topic = {topic: "topic already exists"};
+        }
+        render("topics.eta", {name: topic, errors: errors, topics: dummyData.topics});
+      } else{
+        await topicsService.addTopic(user.id, topic);
+        response.redirect("/topics");
+      }
+    
+    }
+  } catch (e) {
+    console.log("User is not logged in or is not admin");
+    response.redirect("/topics");
+  }
+
+}; 
+
+const showTopic = async ({ render, state }) => {
+  render("topic.eta");
+};
+
+export { showTopics, showTopic, postTopicForm };
