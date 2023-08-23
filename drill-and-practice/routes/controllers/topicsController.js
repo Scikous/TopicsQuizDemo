@@ -1,7 +1,7 @@
 import * as userService from "../../services/userService.js";
 import * as topicsService from "../../services/topicsService.js";
+import * as validateService from "../../services/validateService.js";
 import { validasaur } from "../../deps.js";
-import {topicExists} from "../../services/validateService.js";
 
 const dummyData = {
     topics: [
@@ -11,45 +11,43 @@ const dummyData = {
       // Add more topics as needed
     ]
   };
-const showTopics = async ({ render, state }) => {
+const showTopics = async ({ render, state}) => {
   const admin = await userService.getAdmin();
   await state.session.set("user", admin[0]);
-
-  render("topics.eta", dummyData);
+  const topics = {topics: await topicsService.getTopics()};
+  render("topics.eta", topics);
 };
 
-const postTopicForm = async ({request, response, render, user}) =>{
-
-  try{
-    if (user.admin){
-      const body = request.body();
-      const params = await body.value;
-    
-      const topic = params.get('name');
-    
-    
-      const exists = await topicExists(topic);
-      const [passes, errors] = await validasaur.validate({topic: topic}, {topic: [validasaur.minLength(1),validasaur.required]});
-      if(!passes || exists){
-        if(exists){
-          errors.topic = {topic: "topic already exists"};
+const postAddTopicForm = async ({request, response, render, user}) =>{
+      if (user.admin){
+        const body = request.body();
+        const params = await body.value;
+      
+        const topic = params.get('name').toLowerCase();
+      
+      
+        const exists = await validateService.topicExistsByName(topic);
+        const [passes, errors] = await validasaur.validate({topic: topic}, {topic: [validasaur.minLength(1),validasaur.required]});
+        if(!passes || exists){
+          if(exists){
+            errors.topic = {topic: "topic already exists"};
+          }
+          render("topics.eta", {name: topic, errors: errors, topics: dummyData.topics});
+        } else{
+          await topicsService.addTopic(user.id, topic);
+          response.redirect("/topics");
         }
-        render("topics.eta", {name: topic, errors: errors, topics: dummyData.topics});
-      } else{
-        await topicsService.addTopic(user.id, topic);
-        response.redirect("/topics");
       }
-    
-    }
-  } catch (e) {
-    console.log("User is not logged in or is not admin");
-    response.redirect("/topics");
-  }
-
 }; 
 
-const showTopic = async ({ render, state }) => {
-  render("topic.eta");
-};
 
-export { showTopics, showTopic, postTopicForm };
+const postdeleteTopicByIDForm = async ({request, response, render, user, params}) =>{
+  if (user.admin){
+      const topicID = params.id;
+      await topicsService.deleteTopicByID(topicID, user.id);
+      response.redirect("/topics");    
+    }
+}; 
+
+
+export { showTopics, postAddTopicForm, postdeleteTopicByIDForm };

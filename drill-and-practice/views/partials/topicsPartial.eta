@@ -1,7 +1,13 @@
+
 <ul>
-<% it.topics.forEach((topic) => {%>
-    <li>
-    <h3><a href="topics/<%= topic.id %>"> <%= topic.name %></a></h3>
-    </li>
-<%}); %>
+    <% it.topics.forEach((topic) => {%>
+        <li>
+            <h3><a href="topics/<%= topic.id %>"> <%= topic.name %></a></h3>
+        </li>
+        <% if (it.user && it.user.admin) { %>
+            <form method="POST" action="/topics/<%= topic.id %>/delete">
+                <input type="submit" value="Delete"/>
+            </form>
+        <% } %>
+    <%}); %>
 </ul>

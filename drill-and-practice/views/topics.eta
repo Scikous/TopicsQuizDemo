@@ -15,9 +15,20 @@
 
     <form method="POST" action="/topics">
     Topic title:<br/>
-    <input type="text" name="name" value="<%= it.name ? it.name: "" %>" /><br/>
+    <input type="text" name="name" value="<%= it.name ? it.name: "" %>" required /><br/>
     <input type="submit" value="Add"/>
     </form>
 <% } %>
 
-<%~ includeFile("./partials/topicsPartial.eta", {topics: it.topics}) %>
+<ul>
+    <% it.topics.forEach((topic) => {%>
+        <li>
+            <h3><a href="topics/<%= topic.id %>"> <%= topic.name %></a></h3>
+        </li>
+        <% if (it.user && it.user.admin) { %>
+            <form method="POST" action="/topics/<%= topic.id %>/delete">
+                <input type="submit" value="Delete"/>
+            </form>
+        <% } %>
+    <%}); %>
+</ul>

@@ -4,4 +4,5 @@ const getAdmin = async () =>{ //delete later
     return await sql`SELECT * FROM users WHERE admin=TRUE`;
 };
 
+
 export {getAdmin};
