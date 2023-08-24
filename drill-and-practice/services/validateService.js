@@ -2,7 +2,7 @@ import {sql} from "../database/database.js";
 
 const topicExistsByName = async (topic) => {
     try{
-        const exists = await sql`SELECT EXISTS (SELECT 1 FROM users WHERE name=${topic})`;
+        const exists = await sql`SELECT EXISTS (SELECT 1 FROM topics WHERE name=${topic})`;
         return exists[0].exists;
     }catch(e){
         console.log("No topics yet");
@@ -12,7 +12,7 @@ const topicExistsByName = async (topic) => {
 
 const topicExistsByID = async (topicID) => {
     try {
-        const exists = await sql`SELECT EXISTS (SELECT 1 FROM users WHERE id=${topicID})`;
+        const exists = await sql`SELECT EXISTS (SELECT 1 FROM topics WHERE id=${topicID})`;
         return exists[0].exists;
     }catch(e){
         console.log("No topics yet");

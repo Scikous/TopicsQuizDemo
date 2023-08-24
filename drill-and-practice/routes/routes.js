@@ -35,6 +35,8 @@ router.post("/topics/:id/questions/:qID/options", questionAOController.postAddQu
 router.post("/topics/:id/questions/:qID/options/:oID/delete", questionAOController.postDeleteQuestionAOForm);
 //quiz routing
 router.get("/quiz", quizController.showQuiz);
+router.get("/quiz/:id", quizController.showQuizRandQuestion);
+router.get("/quiz/:id/questions/:qID", quizController.showQuiz);
 
 
 
