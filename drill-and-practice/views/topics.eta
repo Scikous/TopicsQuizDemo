@@ -3,15 +3,7 @@
 <h1>Topics!</h1>
 
 <% if (it.user && it.user.admin) { %>
-    <% if (it.errors) { %>
-    <ul>
-        <% Object.keys(it.errors).forEach((attribute) => { %>
-            <% Object.values(it.errors[attribute]).forEach((err) => { %>
-                <li><%= err %></li>
-            <% }); %>
-        <% }); %>
-    </ul>
-    <% } %>
+    <%~ includeFile("./partials/errorsPartial.eta", {errors: it.errors}) %>
 
     <form method="POST" action="/topics">
     Topic title:<br/>

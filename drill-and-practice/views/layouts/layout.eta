@@ -9,6 +9,7 @@
 
     <body>
     <%~ includeFile("./partials/navbarPartial.eta") %>
+
     <%~ it.body %>
   </body>
 </html>
