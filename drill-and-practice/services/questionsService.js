@@ -5,16 +5,15 @@ const addQuestion = async (userID,topicID, question) =>{
 
 };
 
-const getTopicQuestionByID = async (questionID) =>{
-    const rows = await sql`SELECT * FROM questions WHERE id=${questionID}`;
-    return rows[0];
+const getQuestionByID = async (questionID) =>{
+     return await sql`SELECT * FROM questions WHERE id=${questionID}`;
 }
 
-const getTopicQuestionsByID = async (topicID) =>{
+const getQuestionsByTopicID = async (topicID) =>{
    return await sql`SELECT * FROM questions WHERE topic_id=${topicID}`;
 };
-const deleteTopicQuestionByID = async (userID,questionID) =>{//users can only delete their own questions
-    await sql`DELETE FROM questions WHERE user_id=${userID} AND question_id=${questionID}`;
+const deleteQuestionByID = async (questionID, userID, topicID) =>{//users can only delete their own questions
+    await sql`DELETE FROM questions WHERE id=${questionID} AND user_id=${userID} AND topic_id=${topicID}`;
 }
 
-export {addQuestion, getTopicQuestionsByID, deleteTopicQuestionByID, getTopicQuestionByID};
+export {addQuestion, getQuestionsByTopicID, deleteQuestionByID, getQuestionByID};

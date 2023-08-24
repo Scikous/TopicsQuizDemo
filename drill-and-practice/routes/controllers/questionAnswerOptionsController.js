@@ -7,13 +7,12 @@ import * as questionAOService from "../../services/questionAnswerOptionsService.
 const getData = async(params, request) => {
     const topicID = Number(params.id);
     const questionID = Number(params.qID);
-    const question = await questionsService.getTopicQuestionByID(questionID);
-    console.log(question);
-    
+    const question = await questionsService.getQuestionByID(questionID);
+  
     const data = {
       topicID: topicID,
       questionID: questionID,
-      question_text: question.question_text,
+      question_text: question[0].question_text,
       option_text: "",
       is_correct: false,
       question_answer_options: await questionAOService.getQuestionAOsByID(questionID),
@@ -31,25 +30,43 @@ const getData = async(params, request) => {
     return data;
   };
 
-const showQuestion = async ({render, params}) =>{
+const showQuestion = async ({render, params, state}) =>{
+  const admin = await userService.getAdmin();
+  await state.session.set("user", admin[0]);
   const questionAOData = await getData(params);
-  console.log(questionAOData);
+  console.log(questionAOData.question_answer_options);
   render("questionAnswerOptions.eta", questionAOData);
 };
-const postAddQuestionAOForm = async ({response, request, render, params}) =>{
-  const questionAOData = await getData(params, request);
 
-  const [passes, errors] = await validasaur.validate({option_text: questionAOData.option_text}, {option_text: [validasaur.minLength(1),validasaur.required]});
+const postAddQuestionAOForm = async ({response, request, render, params, user}) =>{
+  if(user){
+    const questionAOData = await getData(params, request);
 
-  if(!passes){
-    questionAOData.errors = errors; //AO=Answer Option
-    render("questionAnswerOptions.eta", questionAOData);
-  }else{
-    await questionAOService.addQuestionAO(questionAOData.questionID, questionAOData.option_text, questionAOData.is_correct);
+    const [passes, errors] = await validasaur.validate({option_text: questionAOData.option_text}, {option_text: [validasaur.minLength(1),validasaur.required]});
+
+    if(!passes){
+      questionAOData.errors = errors; //AO=Answer Option
+      render("questionAnswerOptions.eta", questionAOData);
+    }else{
+      await questionAOService.addQuestionAO(questionAOData.questionID, questionAOData.option_text, questionAOData.is_correct);
+      response.redirect(`/topics/${questionAOData.topicID}/questions/${questionAOData.questionID}`);
+    }
+  }
+};
+
+const postDeleteQuestionAOForm = async ({response, params, request, user})=>{
+  if(user && user.admin){
+    const questionAO_ID = Number(params.oID);
+
+    const questionAOData = await getData(params, request);
+
+    await questionAOService.deleteQuestionAO(questionAO_ID, questionAOData.questionID);
     response.redirect(`/topics/${questionAOData.topicID}/questions/${questionAOData.questionID}`);
   }
 
 };
 
 
-export {showQuestion, postAddQuestionAOForm};
+
+
+export {showQuestion, postAddQuestionAOForm, postDeleteQuestionAOForm};

@@ -3,14 +3,7 @@ import * as topicsService from "../../services/topicsService.js";
 import * as validateService from "../../services/validateService.js";
 import { validasaur } from "../../deps.js";
 
-const dummyData = {
-    topics: [
-      { name: "zxs 1", id: 1 },
-      { name: "abs 2", id: 2 },
-      { name: "dac 3", id: 3 },
-      // Add more topics as needed
-    ]
-  };
+
 const showTopics = async ({ render, state}) => {
   const admin = await userService.getAdmin();
   await state.session.set("user", admin[0]);
@@ -26,12 +19,14 @@ const postAddTopicForm = async ({request, response, render, user}) =>{
         const topic = params.get('name').toLowerCase();
       
       
-        const exists = await validateService.topicExistsByName(topic);
-        const [passes, errors] = await validasaur.validate({topic: topic}, {topic: [validasaur.minLength(1),validasaur.required]});
-        if(!passes || exists){
-          if(exists){
-            errors.topic = {topic: "topic already exists"};
-          }
+        let [passes, errors] = await validasaur.validate({topic: topic}, {topic: [validasaur.minLength(1),validasaur.required]});
+        
+        if(await validateService.topicExistsByName(topic)){
+          errors.topic = {topicExists: "topic exists already"};
+          passes = false;
+        }
+
+        if(!passes){
           render("topics.eta", {name: topic, errors: errors, topics: dummyData.topics});
         } else{
           await topicsService.addTopic(user.id, topic);

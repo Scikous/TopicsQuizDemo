@@ -1,26 +1,32 @@
 import {sql} from "../database/database.js";
 
 const topicExistsByName = async (topic) => {
-    const rows = await sql`SELECT * FROM topics WHERE name=${topic}`;
-    if(rows[0] && rows[0].name === topic){
-        return true;
-    }
-    else{
+    try{
+        const exists = await sql`SELECT EXISTS (SELECT 1 FROM users WHERE name=${topic})`;
+        return exists[0].exists;
+    }catch(e){
+        console.log("No topics yet");
         return false;
     }
 };
 
 const topicExistsByID = async (topicID) => {
-    const rows = await sql`SELECT * FROM topics WHERE id=${topicID}`;
-    if(rows[0] && rows[0].id === topicID){
-        console.log(rows[0].id, topicID);
-
-        return true;
-    }
-    else{
+    try {
+        const exists = await sql`SELECT EXISTS (SELECT 1 FROM users WHERE id=${topicID})`;
+        return exists[0].exists;
+    }catch(e){
+        console.log("No topics yet");
         return false;
     }
 };
 
-
-export {topicExistsByName, topicExistsByID};
+const userExists = async (email) =>{
+    try{
+        const exists = await sql`SELECT EXISTS (SELECT 1 FROM users WHERE email=${email})`;
+        return exists[0].exists;
+    }catch(e){
+        console.log("No users exist yet");
+        return false;
+    }
+};
+export {topicExistsByName, topicExistsByID, userExists};

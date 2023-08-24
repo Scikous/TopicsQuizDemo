@@ -5,10 +5,11 @@ import * as questionsService from "../../services/questionsService.js";
 
 const getData = async(params, request) => {
   const topicID = Number(params.id);
+
   const data = {
     topicID: topicID,
     topic: await topicsService.getTopicNameByID(topicID),
-    questions: await questionsService.getTopicQuestionsByID(topicID),
+    questions: await questionsService.getQuestionsByTopicID(topicID),
     question_text: "",
     errors: {},
   }
@@ -45,17 +46,13 @@ const postAddQuestionForm = async({response, request, render, params, user}) =>{
   }
 };
 
-const postDeleteTopicQuestionForm = async ({params, response,user}) =>{
+const postDeleteQuestionForm = async ({response, params,user}) =>{
   if(user){
     const topicID = params.id;
-    await questionsService.deleteTopicQuestionByID(user.id, topicID);
+    const questionID= params.qID;
+    await questionsService.deleteQuestionByID(questionID, user.id, topicID);
     response.redirect(`/topics/${topicID}`);
   }
 };
 
-
-
-
-
-
-export {postAddQuestionForm, showTopicQuestions, postDeleteTopicQuestionForm};
+export {postAddQuestionForm, showTopicQuestions, postDeleteQuestionForm};
