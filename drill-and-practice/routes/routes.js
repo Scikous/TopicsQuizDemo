@@ -6,6 +6,7 @@ import * as topicsController from "./controllers/topicsController.js";
 import * as questionsController from "./controllers/questionsController.js";
 import * as questionAOController from "./controllers/questionAnswerOptionsController.js";
 import * as quizController from "./controllers/quizController.js";
+import * as quizApi from "./apis/quizApi.js";
 const router = new Router();
 
 router.get("/", mainController.showMain);
@@ -35,9 +36,13 @@ router.post("/topics/:id/questions/:qID/options", questionAOController.postAddQu
 router.post("/topics/:id/questions/:qID/options/:oID/delete", questionAOController.postDeleteQuestionAOForm);
 //quiz routing
 router.get("/quiz", quizController.showQuiz);
-router.get("/quiz/:id", quizController.showQuizRandQuestion);
-router.get("/quiz/:id/questions/:qID", quizController.showQuiz);
+router.get("/quiz/:id", quizController.quizRandTopicQuestionGet);
+router.get("/quiz/:id/questions/:qID", quizController.showQuizRandQuestion);
+router.post("/quiz/:id/questions/:qID/options/:oID", quizController.quizUserAnswer);
 
+router.get("/quiz/:id/questions/:qID/correct", quizController.showCorrectPage);
+router.get("/quiz/:id/questions/:qID/incorrect", quizController.showIncorrectPage);
 
+router.get("/api/questions/random", quizApi.quizRandQuestionGet);
 
 export { router };

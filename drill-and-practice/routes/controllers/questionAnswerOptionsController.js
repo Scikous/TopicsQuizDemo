@@ -12,7 +12,7 @@ const getData = async(params, request) => {
     const data = {
       topicID: topicID,
       questionID: questionID,
-      question_text: question[0].question_text,
+      question_text: question.question_text,
       option_text: "",
       is_correct: false,
       question_answer_options: await questionAOService.getQuestionAOsByID(questionID),

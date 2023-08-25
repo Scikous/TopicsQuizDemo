@@ -6,7 +6,8 @@ const addQuestion = async (userID,topicID, question) =>{
 };
 
 const getQuestionByID = async (questionID) =>{
-     return await sql`SELECT * FROM questions WHERE id=${questionID}`;
+     const question =  await sql`SELECT * FROM questions WHERE id=${questionID}`;
+     return question[0];
 }
 
 const getQuestionsByTopicID = async (topicID) =>{

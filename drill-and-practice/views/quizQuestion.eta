@@ -2,10 +2,16 @@
 
 <h1>Question!</h1>
 
+<h1><%= it.question.question_text %></h1>
+
+
 <ul>
-    <% it.topics.forEach((topic) => {%>
+    <% it.questionAOs.forEach((questionAO) => {%>
         <li>
-            <h3><a href="quiz/<%= topic.id %>"> <%= topic.name %></a></h3>
+            <h3> <%= questionAO.option_text %></h3>
         </li>
+        <form method="POST" action="/quiz/<%= it.question.topic_id %>/questions/<%= it.question.id %>/options/<%= questionAO.id %>">
+            <input type="submit" value="Choose"/>
+        </form>
     <%}); %>
 </ul>
