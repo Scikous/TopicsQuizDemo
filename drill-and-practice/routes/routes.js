@@ -39,10 +39,10 @@ router.get("/quiz", quizController.showQuiz);
 router.get("/quiz/:id", quizController.quizRandTopicQuestionGet);
 router.get("/quiz/:id/questions/:qID", quizController.showQuizRandQuestion);
 router.post("/quiz/:id/questions/:qID/options/:oID", quizController.quizUserAnswer);
-
 router.get("/quiz/:id/questions/:qID/correct", quizController.showCorrectPage);
 router.get("/quiz/:id/questions/:qID/incorrect", quizController.showIncorrectPage);
 
+//quizApi routes
 router.get("/api/questions/random", quizApi.quizRandQuestionGet);
-
+router.post("/api/questions/answer", quizApi.quizPostQuestionAnswer);
 export { router };

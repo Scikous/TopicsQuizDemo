@@ -23,7 +23,7 @@ const addUserAnswer = async (userID, questionID, questionAO_ID) =>{
     await sql`INSERT INTO question_answers (user_id, question_id, question_answer_option_id) VALUES (${userID}, ${questionID}, ${questionAO_ID})`;
 };
 
-const getSelectedAnswer = async (questionAO_ID, questionID) =>{
+const getAnswerTFValue = async (questionAO_ID, questionID) =>{
     const answer = await sql`SELECT is_correct FROM question_answer_options WHERE id=${questionAO_ID} AND question_id=${questionID}`;
     return answer[0].is_correct;
 };
@@ -33,4 +33,4 @@ const getCorrectAnswer = async (questionID) =>{
     return answerText[0].option_text;
 };
 
-export {getRandQuestionByTopicID, getCorrectAnswer, addUserAnswer, getSelectedAnswer, getRandQuestionAsJSON};
+export {getRandQuestionByTopicID, getCorrectAnswer, addUserAnswer, getAnswerTFValue, getRandQuestionAsJSON};

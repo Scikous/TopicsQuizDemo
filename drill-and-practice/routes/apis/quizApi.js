@@ -7,11 +7,25 @@ import * as questionAOService from "../../services/questionAnswerOptionsService.
 
 const quizRandQuestionGet = async ({response}) =>{
     const randomQuestion = await quizService.getRandQuestionAsJSON();
-    const randomQuestionObj = {};
     const randomQuestionJSON = JSON.stringify(randomQuestion);
 
     response.body = randomQuestionJSON;
-    console.log(await response.json());
   };
 
-  export {quizRandQuestionGet};
+  const quizPostQuestionAnswer = async ({response, request}) =>{
+    const body = request.body({type: "json"});
+    const params = await body.value;
+
+    const questionID = Number(params.questionId);
+    const optionID = Number(params.optionId);
+
+    if(questionID && optionID){
+        console.log(questionID, optionID);
+        const isCorrect = await quizService.getAnswerTFValue(optionID, questionID);
+        response.body = {"correct": isCorrect};
+    }else{
+        response.body = "questionId and optionId were not received";
+    }
+  };
+
+  export {quizRandQuestionGet, quizPostQuestionAnswer};

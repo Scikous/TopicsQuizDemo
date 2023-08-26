@@ -53,9 +53,9 @@ const quizUserAnswer = async ({render,  response, request, params ,state, user})
   const questionAO_ID = params.oID;
 
   await quizService.addUserAnswer(user.id, questionID, questionAO_ID);
-  const selectedAnswer = await quizService.getSelectedAnswer(questionAO_ID, questionID);
+  const isCorrect = await quizService.getAnswerTFValue(questionAO_ID, questionID);
 
-  if(selectedAnswer === true){
+  if(isCorrect){
     response.redirect(`/quiz/${topicID}/questions/${questionID}/correct`);
   }else{
     response.redirect(`/quiz/${topicID}/questions/${questionID}/incorrect`);
