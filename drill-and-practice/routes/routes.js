@@ -23,11 +23,11 @@ router.get("/auth/login", loginController.showLoginForm)
 //topics routing
 router.get("/topics", topicsController.showTopics)
     .post("/topics", topicsController.postAddTopicForm);
-router.post("/topics/:id/delete", topicsController.postdeleteTopicByIDForm)
+router.post("/topics/:id/delete", topicsController.postdeleteTopicByIDForm);
 
 //questions routing
-router.get("/topics/:id", questionsController.showTopicQuestions)
-    .post("/topics/:id/questions", questionsController.postAddQuestionForm);
+router.get("/topics/:id", questionsController.showTopicQuestions);
+    router.post("/topics/:id/questions", questionsController.postAddQuestionForm);
 router.post("/topics/:id/questions/:qID/delete", questionsController.postDeleteQuestionForm);
 
 //questionAnswerOptions routing

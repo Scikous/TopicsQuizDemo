@@ -1,17 +1,27 @@
 <% layout("./layouts/layout.eta") %>
 
+
+<div class="col-sm-0 text-center">
+
 <h1>Question!</h1>
 
 <h1><%= it.question.question_text %></h1>
+</div>
 
+<div class="col-sm-0">
 
-<ul>
-    <% it.questionAOs.forEach((questionAO) => {%>
-        <li>
-            <h3> <%= questionAO.option_text %></h3>
-        </li>
-        <form method="POST" action="/quiz/<%= it.question.topic_id %>/questions/<%= it.question.id %>/options/<%= questionAO.id %>">
-            <input type="submit" value="Choose"/>
-        </form>
-    <%}); %>
-</ul>
+        <div class="container-scrollable">
+
+    <ul>
+        <% it.questionAOs.forEach((questionAO) => {%>
+            <li>
+                <h3> <%= questionAO.option_text %></h3>
+            </li>
+            <form method="POST" action="/quiz/<%= it.question.topic_id %>/questions/<%= it.question.id %>/options/<%= questionAO.id %>" class="d-inline">
+                <button type="submit" class="btn btn-primary">Choose</button>
+            </form>
+        <%}); %>
+    </ul>
+    </div>
+
+</div>

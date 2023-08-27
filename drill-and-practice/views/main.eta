@@ -1,8 +1,9 @@
 <% layout("./layouts/layout.eta") %>
+<div class="col-sm-0">
 
 <h1>Topics Quiz!</h1>
 
-<p> This is a web application where one can create questions for available topics, and answer questions in said topics as well. </p>
+<p class="centered-text"> This is a web application where one can create questions for available topics, and answer questions in said topics as well. </p>
 
 
  <% if (it.topicsCount > 0) { %>
@@ -14,3 +15,5 @@
   <% } else {%>
     <h2>No topics yet.</h2>
     <% }%>
+
+  </div>

@@ -27,7 +27,7 @@ const postAddTopicForm = async ({request, response, render, user}) =>{
         }
 
         if(!passes){
-          render("topics.eta", {name: topic, errors: errors, topics: dummyData.topics});
+          render("topics.eta", {name: topic, errors: errors, topics: await topicsService.getTopics()});
         } else{
           await topicsService.addTopic(user.id, topic);
           response.redirect("/topics");

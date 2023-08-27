@@ -1,5 +1,4 @@
 import * as userService from "../../services/userService.js";
-import * as topicsService from "../../services/topicsService.js";
 import { validasaur } from "../../deps.js";
 import * as questionsService from "../../services/questionsService.js";
 import * as questionAOService from "../../services/questionAnswerOptionsService.js";
@@ -31,10 +30,10 @@ const getData = async(params, request) => {
   };
 
 const showQuestion = async ({render, params, state}) =>{
+
+  const questionAOData = await getData(params);
   const admin = await userService.getAdmin();
   await state.session.set("user", admin[0]);
-  const questionAOData = await getData(params);
-  console.log(questionAOData.question_answer_options);
   render("questionAnswerOptions.eta", questionAOData);
 };
 

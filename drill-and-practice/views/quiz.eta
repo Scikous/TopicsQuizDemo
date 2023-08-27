@@ -2,10 +2,13 @@
 
 <h1>Quiz!</h1>
 
-<ul>
-    <% it.topics.forEach((topic) => {%>
-        <li>
-            <h3><a href="quiz/<%= topic.id %>"> <%= topic.name %></a></h3>
-        </li>
-    <%}); %>
-</ul>
+<div class="container-scrollable">
+
+    <ul>
+        <% it.topics.forEach((topic) => {%>
+            <li>
+                <h3><a href="quiz/<%= topic.id %>"> <%= topic.name %></a></h3>
+            </li>
+        <%}); %>
+    </ul>
+</div>

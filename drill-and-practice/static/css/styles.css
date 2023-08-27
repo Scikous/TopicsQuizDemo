@@ -2,3 +2,41 @@
     color: #ffffff; /* Change text color to white on hover */
     background-color: #4b4a4a; /* Change background color on hover */
   }
+
+.container-scrollable {
+  max-height: 280px;
+  max-width: 200px !important;
+  overflow-y: auto !important;
+  overflow-x: auto !important;
+  margin-left: 20px !important;
+}
+
+/* Style for the scrollbar */
+.container-scrollable::-webkit-scrollbar {
+  width: 24px !important; /* Increase the width of the scrollbar */
+  background: #f1f1f1; /* Track color */
+}
+
+.container-scrollable::-webkit-scrollbar-thumb {
+  background: #731b1b; /* Thumb color */
+}
+
+.container-scrollable::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Thumb color on hover */
+}
+
+/* Target the scrollbar of the inner content */
+.container-scrollable ::-webkit-scrollbar {
+  width: 24px !important; /* Increase the width of the scrollbar */
+  background: #f1f1f1; /* Track color */
+}
+
+.container-scrollable ::-webkit-scrollbar-thumb {
+  background: #888; /* Thumb color */
+}
+
+.container-scrollable ::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Thumb color on hover */
+}
+
+

@@ -1,32 +1,47 @@
 <% layout("./layouts/layout.eta") %>
 
-<h1><%= it.question_text %></h1>
+<div class="col-sm-0 text-center">
+
+    <h1><%= it.question_text %></h1>
 
 
-<%~ includeFile("./partials/errorsPartial.eta", {errors: it.errors}) %>
-
-
+    <%~ includeFile("./partials/errorsPartial.eta", {errors: it.errors}) %>
 <form method="POST" action="/topics/<%= it.topicID %>/questions/<%= it.questionID %>/options">
-    Question answer option:<br/>
-    <textarea name="option_text" value="<%= it.option_text ? it.option_text: "" %>"/></textarea>
-    <input type="checkbox" name="is_correct" value=true><br/>
-    <input type="submit" value="Add"/>
+    <div class="form-row align-items-end">
+        <div class="col-sm-0">
+            <div class="form-group">
+                <label for="option_text">Question answer option:</label>
+                <textarea class="form-control" name="option_text" id="option_text"><%= it.option_text ? it.option_text: "" %></textarea>
+                <input class="form-check-input" type="checkbox" name="is_correct" value="true">
+                <label class="form-check-label" for="is_correct">Correct answer</label>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Add</button>
 </form>
 
+</div>
+
 <% if(it.question_answer_options.length > 0) {%>
-    <ul>
-        <% it.question_answer_options.forEach((questionAO) => {%>
-            <li>
-                <h3> <%= questionAO.option_text %>
-                    <%= questionAO.is_correct%></h3>
-            </li>
-                <form method="POST" action="/topics/<%= it.topicID %>/questions/<%= it.questionID %>/options/<%= questionAO.id %>/delete">
-                    <input type="submit" value="Delete answer option"/>
-                </form>
-        <%}); %>
-    </ul>
+     <div class="col-sm-0">
+
+        <div class="container-scrollable">
+
+            <ul>
+                <% it.question_answer_options.forEach((questionAO) => {%>
+                    <li>
+                        <h4> <%= questionAO.option_text %></h4>
+                        <h4>    <%= questionAO.is_correct%></h4>
+                    </li>
+                        <form method="POST" action="/topics/<%= it.topicID %>/questions/<%= it.questionID %>/options/<%= questionAO.id %>/delete">
+                           <button type="submit" class="btn btn-danger">Delete option</button>
+                        </form>
+                <%}); %>
+            </ul>
+    </div>
+</div>
 <%}else{%>
     <form method="POST" action="/topics/<%= it.topicID %>/questions/<%= it.questionID %>/delete">
-        <input type="submit" value="Delete question"/>
+        <button type="submit" class="btn btn-danger">Delete question</button>
     </form>
 <%}%>

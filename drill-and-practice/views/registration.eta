@@ -1,16 +1,27 @@
-<h1>Register!</h1>
+<% layout("./layouts/layout.eta") %>
 
-<%~ includeFile("./partials/errorsPartial.eta", {errors: it.errors}) %>
+<div class="col-sm-0 text-center">
+    <h1>Register!</h1>
 
+    <%~ includeFile("./partials/errorsPartial.eta", {errors: it.errors}) %>
 
-<form method="POST" action="/auth/register">
-  Email:<br/>
-  <input type="email" name="email" value="<%= it.email ? it.email: "" %>" /><br/>
-  Password:<br/>
-  <input type="password" name="password" /><br/>
-  Same password again:<br/>
-  <input type="password" name="verification" /><br/>
-  <input type="submit" value="Register" />
-</form>
+    <form method="POST" action="/auth/register">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" value="<%= it.email ? it.email: "" %>" />
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" name="password" />
+        </div>
+        <div class="form-group">
+            <label for="verification">Same password again:</label>
+            <input type="password" class="form-control" id="verification" name="verification" />
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
 
-<p>Already registered? <a href="/auth/login">Login here!</a></p>
+    <div style="margin-top: 20px;">
+        <p>Already registered? <a href="/auth/login">Login here!</a></p>
+    </div>
+</div>
