@@ -1,5 +1,8 @@
 <% layout("./layouts/layout.eta") %>
 
+<title>Quiz Topics</title>
+
+
 <h1>Quiz!</h1>
 
 <div class="container-scrollable">

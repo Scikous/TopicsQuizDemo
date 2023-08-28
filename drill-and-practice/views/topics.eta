@@ -1,5 +1,8 @@
 <% layout("./layouts/layout.eta") %>
 
+<title>Topics Create</title>
+
+
 <div class="col-sm-0 text-center">
 
 
@@ -11,7 +14,7 @@
         <form method="POST" action="/topics">
             <div class="form-group">
                 <label for="topicTitle">Topic title:</label>
-                <input type="text" class="form-control" id="topicTitle" name="name" value="<%= it.name ? it.name: "" %>" required>
+                <input type="text" class="form-control" id="topicTitle" name="name" value="<%= it.name ? it.name: "" %>" required />
             </div>
             <button type="submit" class="btn btn-primary">Add</button>
         </form>

@@ -1,5 +1,8 @@
 <% layout("./layouts/layout.eta") %>
 
+<title>Registration</title>
+
+
 <div class="col-sm-0 text-center">
     <h1>Register!</h1>
 

@@ -1,5 +1,8 @@
 <% layout("./layouts/layout.eta") %>
 
+<title>Question Answer Option Create</title>
+
+
 <div class="col-sm-0 text-center">
 
     <h1><%= it.question_text %></h1>
@@ -17,7 +20,17 @@
             </div>
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">Add</button>
+    <% if(it.question_answer_options.length <= 0 || (it.user && it.user.admin)) {%>
+        <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-primary">Add</button>
+            <form method="POST" action="/topics/<%= it.topicID %>/questions/<%= it.questionID %>/delete">
+                <button type="submit" class="btn btn-danger">Delete question</button>
+            </form>
+        </div>
+    <%}else{%>
+        <button type="submit" class="btn btn-primary">Add</button>
+    <%}%>
+
 </form>
 
 </div>
@@ -40,8 +53,4 @@
             </ul>
     </div>
 </div>
-<%}else{%>
-    <form method="POST" action="/topics/<%= it.topicID %>/questions/<%= it.questionID %>/delete">
-        <button type="submit" class="btn btn-danger">Delete question</button>
-    </form>
 <%}%>

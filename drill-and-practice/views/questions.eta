@@ -1,5 +1,8 @@
 <% layout("./layouts/layout.eta") %>
 
+<title>Questions Create</title>
+
+
 <div class="col-sm-0 text-center">
     <h1><%= it.topic %></h1>
     <%~ includeFile("./partials/errorsPartial.eta", {errors: it.errors}) %>
@@ -10,9 +13,20 @@
             <label for="questionDescription">Question description:</label>
             <textarea class="form-control" name="question_text" id="questionDescription"><%= it.question_text ? it.question_text: "" %></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Add</button>
+
+        <% if(it.user && it.user.admin) {%>
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">Add</button>
+                    <form method="POST" action="/topics/<%= it.topicID %>/delete">
+                        <button type="submit" class="btn btn-danger">Delete Topic</button>
+                    </form>
+            </div>
+        <%}else{ %>
+            <button type="submit" class="btn btn-primary">Add</button>
+        <%}%>
     </form>
 </div>
+
 
 <% if(it.questions.length > 0) {%>
     <div class="col-sm-0">
@@ -33,10 +47,5 @@
             </ul>
         </div>
     </div>
-<%}else {%>
-    <% if (it.user && it.user.admin) { %>
-        <form method="POST" action="/topics/<%= it.topicID %>/delete">
-            <button type="submit" class="btn btn-danger">Delete Topic</button>
-        </form>
-    <% } %>
-<% } %>
+<%}%>
+

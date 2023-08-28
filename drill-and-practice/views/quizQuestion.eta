@@ -1,5 +1,7 @@
 <% layout("./layouts/layout.eta") %>
 
+<title>Quiz Question</title>
+
 
 <div class="col-sm-0 text-center">
 

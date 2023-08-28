@@ -1,5 +1,8 @@
 <% layout("./layouts/layout.eta") %>
 
+<title>Quiz Incorrect</title>
+
+
 <div class="col-sm-0">
 
 <h1>Incorrect!</h1>

@@ -5,8 +5,8 @@ import { validasaur } from "../../deps.js";
 
 
 const showTopics = async ({ render, state}) => {
-  const admin = await userService.getAdmin();
-  await state.session.set("user", admin[0]);
+  // const admin = await userService.getAdmin();
+  // await state.session.set("user", admin[0]);
   const topics = {topics: await topicsService.getTopics()};
   render("topics.eta", topics);
 };

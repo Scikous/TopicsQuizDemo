@@ -1,5 +1,7 @@
 const { test, expect } = require("@playwright/test");
 
-test("Empty test", async ({ page }) => {
+test("Home page has expected statistics", async ({ page }) => {
+    await page.goto("/");
+    await expect(page).toHaveTitle("Topics Quiz");
 
 });
