@@ -32,8 +32,6 @@ const getData = async(params, request) => {
 const showQuestion = async ({render, params, state}) =>{
 
   const questionAOData = await getData(params);
-  const admin = await userService.getAdmin();
-  await state.session.set("user", admin[0]);
   render("questionAnswerOptions.eta", questionAOData);
 };
 

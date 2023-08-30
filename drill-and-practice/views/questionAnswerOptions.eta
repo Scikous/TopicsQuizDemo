@@ -1,6 +1,6 @@
 <% layout("./layouts/layout.eta") %>
 
-<title>Question Answer Option Create</title>
+<title>Question Answer Options Create</title>
 
 
 <div class="col-sm-0 text-center">
@@ -15,7 +15,7 @@
             <div class="form-group">
                 <label for="option_text">Question answer option:</label>
                 <textarea class="form-control" name="option_text" id="option_text"><%= it.option_text ? it.option_text: "" %></textarea>
-                <input class="form-check-input" type="checkbox" name="is_correct" value="true">
+                <input class="form-check-input" type="checkbox" name="is_correct" value="false">
                 <label class="form-check-label" for="is_correct">Correct answer</label>
             </div>
         </div>

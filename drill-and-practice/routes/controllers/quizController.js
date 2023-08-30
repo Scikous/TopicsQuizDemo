@@ -8,15 +8,15 @@ import * as questionAOService from "../../services/questionAnswerOptionsService.
 
 
 const showQuiz = async ({ render, state}) => {
-  const admin = await userService.getAdmin();
-  await state.session.set("user", admin[0]);
+  
+
   const topics = {topics: await topicsService.getTopics()};
   render("quiz.eta", topics);
 };
 
 const showQuizRandQuestion = async ({ render, response, params , state}) => {
-  const admin = await userService.getAdmin();
-  await state.session.set("user", admin[0]);
+  
+
 
   const questionID = params.qID;
   const question = await questionsService.getQuestionByID(questionID);
