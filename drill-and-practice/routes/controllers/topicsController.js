@@ -16,13 +16,13 @@ const postAddTopicForm = async ({request, response, render, user}) =>{
         const body = request.body();
         const params = await body.value;
       
-        const topic = params.get('name').toLowerCase();
+        const topic = params.get('name');
       
       
-        let [passes, errors] = await validasaur.validate({topic: topic}, {topic: [validasaur.minLength(1),validasaur.required]});
+        let [passes, errors] = await validasaur.validate({topic: topic}, {topic: [validasaur.lengthBetween(1, 255),validasaur.required]});
         
         if(await validateService.topicExistsByName(topic)){
-          errors.topic = {topicExists: "topic exists already"};
+          errors.topic = {topicExists: "Topic exists already"};
           passes = false;
         }
 

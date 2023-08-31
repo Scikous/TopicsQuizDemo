@@ -15,11 +15,11 @@ const postRegistrationForm = async ({render, response, request}) =>{
     const password = registerParams.get("password");
     const verification = registerParams.get("verification");
 
-    const validationRules = {email: [validasaur.minLength(4),validasaur.isEmail, validasaur.required],
-        password: [validasaur.minLength(4), isSame(password, verification) ,validasaur.required],};
-    const validationErrorMsgs = {messages: {"email.minLength": "email must be at least 4 characters long",
+    const validationRules = {email: [validasaur.lengthBetween(4, 255),validasaur.isEmail, validasaur.required],
+        password: [validasaur.lengthBetween(4, 60), isSame(password, verification) ,validasaur.required],};
+    const validationErrorMsgs = {messages: {"email.lengthBetween": "email must be between 4-255 characters long",
                                             "email.required": "email is required",
-                                            "password.minLength": "password must be at least 4 characters long",
+                                            "password.lengthBetween": "password must be between 4-60 characters long",
                                             "password.required": "password is required",
                                             "isSame": "password and verification do not match",}};//helpst to avoid user from figuring out if email exists 
 

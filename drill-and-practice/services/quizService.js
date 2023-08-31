@@ -29,8 +29,12 @@ const getAnswerTFValue = async (questionAO_ID, questionID) =>{
 };
 
 const getCorrectAnswer = async (questionID) =>{
-    const answerText = await sql`SELECT option_text FROM question_answer_options WHERE is_correct=true AND question_id=${questionID}`;
-    return answerText[0].option_text;
+    try{
+        const answerText = await sql`SELECT option_text FROM question_answer_options WHERE is_correct=true AND question_id=${questionID}`;
+        return answerText[0].option_text;
+    }catch(e){
+        return "None";
+    }
 };
 
 export {getRandQuestionByTopicID, getCorrectAnswer, addUserAnswer, getAnswerTFValue, getRandQuestionAsJSON};

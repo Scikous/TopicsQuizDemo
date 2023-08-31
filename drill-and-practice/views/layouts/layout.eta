@@ -10,7 +10,7 @@
     </head>
 
     <body>
-    <%~ includeFile("./partials/navbarPartial.eta") %>
+    <%~ includeFile("./partials/navbarPartial.eta", {user: it.user}) %>
     <div class="d-flex align-items-center justify-content-center min-vh-100">
             <%~ it.body %>
     </div>

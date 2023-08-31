@@ -2,6 +2,7 @@ import * as userService from "../../services/userService.js";
 import { validasaur } from "../../deps.js";
 import * as questionsService from "../../services/questionsService.js";
 import * as questionAOService from "../../services/questionAnswerOptionsService.js";
+import * as validateService from "../../services/validateService.js";
 
 const getData = async(params, request) => {
     const topicID = Number(params.id);
@@ -39,7 +40,12 @@ const postAddQuestionAOForm = async ({response, request, render, params, user}) 
   if(user){
     const questionAOData = await getData(params, request);
 
-    const [passes, errors] = await validasaur.validate({option_text: questionAOData.option_text}, {option_text: [validasaur.minLength(1),validasaur.required]});
+    let [passes, errors] = await validasaur.validate({option_text: questionAOData.option_text}, {option_text: [validasaur.minLength(1),validasaur.required]});
+
+    if(await validateService.questionAOExistsByName(questionAOData.option_text, questionAOData.questionID)){
+      errors.questionAO = {Exists: "Question answer option exists already"};
+      passes = false;
+    }
 
     if(!passes){
       questionAOData.errors = errors; //AO=Answer Option
@@ -52,14 +58,12 @@ const postAddQuestionAOForm = async ({response, request, render, params, user}) 
 };
 
 const postDeleteQuestionAOForm = async ({response, params, request, user})=>{
-  if(user && user.admin){
     const questionAO_ID = Number(params.oID);
 
     const questionAOData = await getData(params, request);
 
     await questionAOService.deleteQuestionAO(questionAO_ID, questionAOData.questionID);
     response.redirect(`/topics/${questionAOData.topicID}/questions/${questionAOData.questionID}`);
-  }
 
 };
 

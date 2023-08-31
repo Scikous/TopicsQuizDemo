@@ -4,13 +4,10 @@
 
 
 <div class="col-sm-0 text-center">
-
-
     <h1>Topics!</h1>
-
     <% if (it.user && it.user.admin) { %>
         <%~ includeFile("./partials/errorsPartial.eta", {errors: it.errors}) %>
-
+        
         <form method="POST" action="/topics">
             <div class="form-group">
                 <label for="topicTitle">Topic title:</label>
@@ -23,10 +20,7 @@
 </div>
 
 <div class="col-sm-0">
-
-
     <div class="container-scrollable">
-
             <ul>
                 <% it.topics.forEach((topic) => {%>
                     <li>

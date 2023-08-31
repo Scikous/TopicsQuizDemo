@@ -4,11 +4,11 @@
   }
 
 .container-scrollable {
-  max-height: 280px;
-  max-width: 200px !important;
+  max-height: 280px !important;
+  max-width: 280px !important;
   overflow-y: auto !important;
   overflow-x: auto !important;
-  margin-left: 20px !important;
+  margin: 0 auto !important;
 }
 
 /* Style for the scrollbar */
@@ -38,5 +38,3 @@
 .container-scrollable ::-webkit-scrollbar-thumb:hover {
   background: #555; /* Thumb color on hover */
 }
-
-

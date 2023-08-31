@@ -15,9 +15,6 @@ const showQuiz = async ({ render, state}) => {
 };
 
 const showQuizRandQuestion = async ({ render, response, params , state}) => {
-  
-
-
   const questionID = params.qID;
   const question = await questionsService.getQuestionByID(questionID);
   const questionAOs = await questionAOService.getQuestionAOsByID(questionID);

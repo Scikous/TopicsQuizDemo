@@ -2,6 +2,7 @@ import * as userService from "../../services/userService.js";
 import * as topicsService from "../../services/topicsService.js";
 import { validasaur } from "../../deps.js";
 import * as questionsService from "../../services/questionsService.js";
+import * as validateService from "../../services/validateService.js";
 
 const getData = async(params, request) => {
   const topicID = Number(params.id);
@@ -23,25 +24,27 @@ const getData = async(params, request) => {
 };
 
 const showTopicQuestions = async ({ render, request, params, state }) => {
-  const topicData = await getData(params);
-
-  
-
-  render("questions.eta", topicData);
+  const questionData = await getData(params);
+  render("questions.eta", questionData);
 };
 
 const postAddQuestionForm = async({response, request, render, params, user}) =>{
   if(user){
-    const topicData = await getData(params, request);
+    const questionData = await getData(params, request);
     
-    const [passes, errors] = await validasaur.validate({question_text: topicData.question_text}, {question_text: [validasaur.minLength(1),validasaur.required]});
+    let [passes, errors] = await validasaur.validate({question_text: questionData.question_text}, {question_text: [validasaur.minLength(1),validasaur.required]});
     
+    if(await validateService.questionExistsByName(questionData.question_text, questionData.topicID)){
+      errors.question = {Exists: "Question exists already"};
+      passes = false;
+    }
+
     if(!passes){
-      topicData.errors = errors;
-      render("questions.eta", topicData);
+      questionData.errors = errors;
+      render("questions.eta", questionData);
     }else{
-      await questionsService.addQuestion(user.id, topicData.topicID, topicData.question_text);
-      response.redirect(`/topics/${topicData.topicID}`);
+      await questionsService.addQuestion(user.id, questionData.topicID, questionData.question_text);
+      response.redirect(`/topics/${questionData.topicID}`);
     }
   }
 };
