@@ -21,7 +21,7 @@
     <div style="margin-top: 20px;">
         <% if(it.user && it.user.admin) {%>
             <form method="POST" action="/topics/<%= it.topicID %>/delete">
-                <button type="submit" class="btn btn-danger">Delete Topic</button>
+                <button type="submit" class="btn btn-danger">Delete topic</button>
             </form>
         <%}%>
     </div>

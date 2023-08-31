@@ -11,18 +11,22 @@
     </div>
 </div>
 
-<div class="col-sm-0">
-        <div class="container-scrollable">
-    <ul>
-        <% it.questionAOs.forEach((questionAO) => {%>
-            <li>
-                <h3> <%= questionAO.option_text %></h3>
-            </li>
-            <form method="POST" action="/quiz/<%= it.question.topic_id %>/questions/<%= it.question.id %>/options/<%= questionAO.id %>" class="d-inline">
-                <button type="submit" class="btn btn-primary">Choose</button>
-            </form>
-        <%}); %>
-    </ul>
+<div class="col-sm-0" style="margin-left: 27px;">
+    <div class="container-scrollable">
+        <% if(it.questionAOs.length > 0) {%>
+            <ul>
+                <% it.questionAOs.forEach((questionAO) => {%>
+                    <li>
+                        <h3> <%= questionAO.option_text %></h3>
+                    </li>
+                    <form method="POST" action="/quiz/<%= it.question.topic_id %>/questions/<%= it.question.id %>/options/<%= questionAO.id %>" class="d-inline">
+                        <button type="submit" class="btn btn-primary">Choose</button>
+                    </form>
+                <%}); %>
+            </ul>
+            <%}else{%>
+                <h3>No answer options yet</h3>
+            <%}%>
     </div>
 
 </div>

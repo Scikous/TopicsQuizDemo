@@ -6,7 +6,8 @@
 <div class="col-sm-0">
 
 <h1>Incorrect!</h1>
-
-<h3> The correct option was: <%= it.correct_option_text %> </h3>
+<div class="container-scrollable">
+    <h3> The correct option was: <%= it.correct_option_text %> </h3>
+</div>
 <a href="/quiz/<%= it.topicID %>"> Next question </a>
 </div>

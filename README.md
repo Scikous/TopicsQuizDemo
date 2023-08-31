@@ -7,3 +7,11 @@ Password: ```pass```
 
 # api manual testing
 ``` curl -v -X POST -d '{"questionId":46,"optionId":36}' localhost:7777/api/questions/answer```
+
+# Terminal testing
+
+```curl -X POST -c cookies.txt -d "email=user@user.com&password=pass" localhost:7777/auth/login```
+```curl -v -X POST -b cookies.txt localhost:7777/topics/14/delete```
+
+# Playwright testing
+```docker-compose run --entrypoint=npx e2e-playwright playwright test && docker-compose rm -sf```
