@@ -2,18 +2,13 @@
 // const {adminLogin} = require("../utils/testUtils.js");
 // //test for admin
 
-
-
-// test("Login admin test", async ({ page }) => {
+// test.beforeEach(async ({page}) => {
 //     await adminLogin({page});
+//     //upon succesful login user is automatically redirected to /topics
 //     await expect(page).toHaveTitle("Topics Create");
 // });
 
-
 // test("Topics Create page has expected admin add and delete functionality", async ({ page }) => {
-//     await adminLogin({page});
-//     await expect(page).toHaveTitle("Topics Create");
-
 //     const topics = ['groceries', 'anime', 'animals', 'vehicles', 'weapons', 'sweets', "power tools"];
 
 //     for (const topic of topics){
@@ -37,7 +32,6 @@
 
 
 // test("Questions Create page has expected admin add and delete functionality", async ({ page }) => {
-//     await adminLogin({page});
 //     await page.locator('h3 a').first().click();
 //     await expect(page).toHaveTitle("Questions Create");
 
@@ -63,7 +57,6 @@
 
 
 // test("Question Answer Option Create page has expected admin add and delete functionality", async ({ page }) => {
-//     await adminLogin({page});
 //     await page.locator('h3 a').first().click();
 //     await expect(page).toHaveTitle("Questions Create");
 //     await page.locator('h3 a').first().click();

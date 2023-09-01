@@ -20,7 +20,15 @@ const {elementsGetter} = require("../utils/testUtils.js");
 
 
 
-test("Registration page has expected functionality", async ({ page }) => {
-    
-});
+// test("Registration page has expected functionality", async ({ page }) => {
+//     await page.goto("/auth/register");
+//     await expect(page).toHaveTitle("Registration");
+  
+//     await page.locator("input[type=email]").type("test@test.com");
+//     await page.locator("input[id=password]").type("test");
+//     await page.locator("input[id=verification]").type("test");
+
+//     await page.locator("button.btn.btn-primary").click();
+//     await expect(page).toHaveTitle("Login");
+// });
 

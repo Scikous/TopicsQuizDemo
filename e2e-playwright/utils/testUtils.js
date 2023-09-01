@@ -10,6 +10,16 @@ const adminLogin = async({page}) =>{
     await page.locator("button.btn.btn-primary").click();
 };
 
+const userLogin = async({page}) =>{
+  await page.goto("/auth/login");
+  await expect(page).toHaveTitle("Login");
+
+  await page.locator("input[type=email]").type("user@user.com");
+  await page.locator("input[type=password]").type("pass");
+
+  await page.locator("button.btn.btn-primary").click();
+};
+
 
 const elementsGetter = async ({page}, tag) =>{
     const elementsRaw = await page.$$(tag);
@@ -17,4 +27,4 @@ const elementsGetter = async ({page}, tag) =>{
     return elements;
   };
 
-export {adminLogin, elementsGetter};
+export {adminLogin, userLogin,  elementsGetter};

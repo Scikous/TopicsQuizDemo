@@ -3,19 +3,13 @@
 // //test for user
 
 
-// test("Login user test", async ({ page }) => {
+// test.beforeEach(async ({page}) => {
 //     await userLogin({page});
 //     //upon succesful login user is automatically redirected to /topics
 //     await expect(page).toHaveTitle("Topics Create");
 // });
 
-
 // test("Topics Create page does not allow user to create nor delete topics, only click links", async ({ page }) => {
-//     await userLogin({page});
-//     await expect(page).toHaveTitle("Topics Create");
-
-
-
 //     //user should not see add and delete buttons and textbox
 //     await expect(await page.locator("input[type=text]").count()).toBe(0);
 //     await expect(await page.locator("button.btn.btn-primary").count()).toBe(0);
@@ -30,7 +24,6 @@
 
 
 // test("Questions Create page allows user only to add questions", async ({ page }) => {
-//     await userLogin({page});
 //     await page.locator('h3 a').first().click();
 //     await expect(page).toHaveTitle("Questions Create");
 
@@ -54,7 +47,6 @@
 
 
 // test("Question Answer Options Create page has expected user add and delete functionality", async ({ page }) => {
-//     await userLogin({page});
 //     await page.locator('h3 a').first().click();
 //     await expect(page).toHaveTitle("Questions Create");
 //     await page.locator('h3 a').first().click();

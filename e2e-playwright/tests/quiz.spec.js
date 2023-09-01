@@ -2,11 +2,15 @@ const { test, expect } = require("@playwright/test");
 const {adminLogin, userLogin} = require("../utils/testUtils.js");
 //test for user
 
-test("Create question with options for Quiz", async ({page}) =>{
+test.beforeEach(async ({page}) => {
     await adminLogin({page});
-    //try to create topic
+    //upon succesful login user is automatically redirected to /topics
     await expect(page).toHaveTitle("Topics Create");
+});
 
+test("Create question with options for Quiz", async ({page}) =>{
+
+    //try to create topic
     await page.locator("input[type=text]").type("animals");
     await page.locator("button.btn.btn-primary:has-text('Add')").click();
     await expect(page).toHaveTitle("Topics Create");
@@ -37,9 +41,9 @@ test("Create question with options for Quiz", async ({page}) =>{
 
 });
 
+
+
 test("Quiz test", async ({ page }) => {
-    await userLogin({page});
-    //upon succesful login user is automatically redirected to /topics
     await page.goto("/quiz");
     await expect(page).toHaveTitle("Quiz Topics");
 
@@ -63,10 +67,9 @@ test("Quiz test", async ({ page }) => {
 
 
 test("Quiz has no questions", async ({ page }) => {
-    await userLogin({page});
-    //upon succesful login user is automatically redirected to /topics
     await page.goto("/quiz");
     await expect(page).toHaveTitle("Quiz Topics");
+
     await page.locator('h3 a').nth(1).click();
     await expect(page.locator('pre')).toHaveText("Oopsie, this topic doesn't have any questions yet");
 
