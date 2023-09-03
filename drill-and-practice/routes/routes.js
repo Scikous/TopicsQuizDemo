@@ -7,6 +7,8 @@ import * as questionsController from "./controllers/questionsController.js";
 import * as questionAOController from "./controllers/questionAnswerOptionsController.js";
 import * as quizController from "./controllers/quizController.js";
 import * as quizApi from "./apis/quizApi.js";
+import * as sessionApi from "./apis/sessionApi.js";
+
 
 const router = new Router();
 
@@ -16,11 +18,15 @@ router.get("/", mainController.showMain);
 //registration routing
 router.get("/auth/register", registrationController.showRegistrationForm)
     .post("/auth/register", registrationController.postRegistrationForm);
+router.get("/auth/register/success", registrationController.showRegistrationSuccess);
 
 //login routing
 router.get("/auth/login", loginController.showLoginForm)
     .post("/auth/login", loginController.postLoginForm);
 router.get("/auth/logout", loginController.postUserLogout);
+//session API routes
+router.get("/api/logout", sessionApi.sessionIdleCheck);//automatic logout
+
 
 //topics routing
 router.get("/topics", topicsController.showTopics)
@@ -47,8 +53,5 @@ router.get("/quiz/:id/questions/:qID/incorrect", quizController.showIncorrectPag
 //quizApi routes
 router.get("/api/questions/random", quizApi.quizRandQuestionGet);
 router.post("/api/questions/answer", quizApi.quizPostQuestionAnswer);
-
-router.get("/api/logout", quizApi.test);
-
 
 export { router };

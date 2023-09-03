@@ -15,3 +15,7 @@ Password: ```pass```
 
 # Playwright testing
 ```docker-compose run --entrypoint=npx e2e-playwright playwright test && docker-compose rm -sf```
+
+# Deno tests
+Must be run in the drill-and-practice directory.
+```docker-compose run --rm drill-and-practice deno test --allow-all```

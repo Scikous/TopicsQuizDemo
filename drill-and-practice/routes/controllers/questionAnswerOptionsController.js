@@ -1,4 +1,3 @@
-import * as userService from "../../services/userService.js";
 import { validasaur } from "../../deps.js";
 import * as questionsService from "../../services/questionsService.js";
 import * as questionAOService from "../../services/questionAnswerOptionsService.js";

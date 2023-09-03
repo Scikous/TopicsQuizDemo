@@ -1,11 +1,7 @@
-import * as userService from "../../services/userService.js";
 import * as topicsService from "../../services/topicsService.js";
 import * as quizService from "../../services/quizService.js";
 import * as questionsService from "../../services/questionsService.js";
 import * as questionAOService from "../../services/questionAnswerOptionsService.js";
-
-
-
 
 const showQuiz = async ({ render }) => {
   const topics = {topics: await topicsService.getTopics()};

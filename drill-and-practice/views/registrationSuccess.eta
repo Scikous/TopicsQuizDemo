@@ -1,0 +1,17 @@
+<% layout("./layouts/layout.eta") %>
+
+<title>Registration Success</title>
+
+
+<div class="col-sm-0">
+
+<h1>Successfuly registered!</br></br>
+    Redirecting to login in 3 SECONDS!</h1>
+<p>Click here to manually redirect => <a href="/auth/login %>">Login</a></p>
+</div>
+
+<script>
+    setTimeout(() => {
+    window.location.href = "/auth/login";
+    }, 3000); //
+</script>

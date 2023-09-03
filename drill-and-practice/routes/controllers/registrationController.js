@@ -1,11 +1,15 @@
 import * as userService from "../../services/userService.js";
 import { validasaur, bcrypt  } from "../../deps.js";
-import {isSame} from "./isSame.ts";
+import {isSame} from "../../utils/validators/isSame.ts";
 import * as validateService from "../../services/validateService.js";
 
 const showRegistrationForm = async ({render}) =>{
     render("registration.eta");
 };
+
+const showRegistrationSuccess = async({response, render}) =>{
+    render("registrationSuccess.eta");
+}
 
 const postRegistrationForm = async ({render, response, request}) =>{
     const body = request.body({type: "form"});
@@ -36,7 +40,7 @@ const postRegistrationForm = async ({render, response, request}) =>{
     else{
         const encryptedPass = await bcrypt.hash(password);  
         await userService.addUser(email, encryptedPass);
-        response.redirect("/auth/login");
+        response.redirect("/auth/register/success");
     }
 };
 
@@ -44,4 +48,4 @@ const postRegistrationForm = async ({render, response, request}) =>{
 
 
 
-export {showRegistrationForm, postRegistrationForm };
+export {showRegistrationForm, postRegistrationForm, showRegistrationSuccess };

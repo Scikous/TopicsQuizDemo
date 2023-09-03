@@ -12,3 +12,13 @@ const retrieveQuizAnswerFromApi = async () => {
     const json = await response.json();
     console.log(json);
   };
+
+  const registrationSuccessAlert = async () => {
+    // After successful registration
+    Swal.fire({
+      icon: 'success',
+      title: 'Registration Successful',
+      text: 'You have successfully registered!',
+    });
+
+  };

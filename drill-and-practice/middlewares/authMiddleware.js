@@ -7,6 +7,13 @@ const authMiddleware = async (context, next) => {
     if (user) {
         context.user = user;
     }
+    if(user &&
+        (context.request.url.pathname === "/auth/login"
+        || context.request.url.pathname === "/auth/register")
+        )
+        {
+            context.response.redirect("/");
+        }
 
     if (
         !user && restrictedPaths.some((path) =>
