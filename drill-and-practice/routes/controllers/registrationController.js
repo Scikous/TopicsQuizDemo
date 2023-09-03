@@ -31,7 +31,6 @@ const postRegistrationForm = async ({render, response, request}) =>{
     }
 
     if(!passes){
-        console.log(errors, await validateService.userExists(email));
         render("registration.eta", {email: email, errors: errors});
     }
     else{

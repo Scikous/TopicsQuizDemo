@@ -30,8 +30,7 @@ const getData = async(params, request) => {
     return data;
   };
 
-const showQuestion = async ({render, params, state}) =>{
-
+const showQuestion = async ({render, params}) =>{
   const questionAOData = await getData(params);
   render("questionAnswerOptions.eta", questionAOData);
 };
@@ -58,13 +57,14 @@ const postAddQuestionAOForm = async ({response, request, render, params, user}) 
 };
 
 const postDeleteQuestionAOForm = async ({response, params, request, user})=>{
+  if(user){
     const questionAO_ID = Number(params.oID);
 
     const questionAOData = await getData(params, request);
 
     await questionAOService.deleteQuestionAO(questionAO_ID, questionAOData.questionID);
     response.redirect(`/topics/${questionAOData.topicID}/questions/${questionAOData.questionID}`);
-
+  }
 };
 
 

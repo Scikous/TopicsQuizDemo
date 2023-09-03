@@ -1,4 +1,4 @@
-const restrictedPaths = ["/l", "/x"];
+const restrictedPaths = ["/topics", "/quiz"];
 
 const authMiddleware = async (context, next) => {
 

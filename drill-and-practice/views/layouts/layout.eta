@@ -10,9 +10,29 @@
     </head>
 
     <body>
+    <script>
+      const sessionStatusMonitor = async () => {
+        const sessionStatus = await fetch("/api/logout");
+        const sessionStatusJSON = await sessionStatus.json();
+        const statusCheckInterval = 15 * 60 * 1000 //check if user idle status every 15 minutes
+        if(sessionStatusJSON.user !== "null"){//only logged in users need to be checked
+          const interval = setInterval(async () => {
+            const sessionStatus = await fetch("/api/logout");
+            const sessionStatusJSON = await sessionStatus.json();
+            if(sessionStatusJSON.expired){//log user out if idle for too long
+                window.location.href = "/auth/logout";
+                clearInterval(interval);
+                console.log("cleared");
+              }
+            },5000);
+          }
+      };
+      sessionStatusMonitor();
+    </script>
     <%~ includeFile("./partials/navbarPartial.eta", {user: it.user}) %>
     <div class="d-flex align-items-center justify-content-center min-vh-100">
             <%~ it.body %>
     </div>
+
   </body>
 </html>

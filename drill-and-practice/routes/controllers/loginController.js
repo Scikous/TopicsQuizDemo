@@ -1,9 +1,20 @@
 import * as userService from "../../services/userService.js";
 import { bcrypt  } from "../../deps.js";
 
+let sessionTimeout;
+
 const showLoginForm = async ({render}) =>{
     render("login.eta");
 };
+
+const postUserLogout = async ({response, user, state}) =>{
+    if(user){
+        await state.session.set("user", null);
+        await state.session.set("sessionExpire", null);
+        response.redirect("/auth/login");
+    }
+};
+
 
 const postLoginForm = async ({render, response, request, state}) =>{
     const body = request.body({type: "form"});
@@ -19,13 +30,14 @@ const postLoginForm = async ({render, response, request, state}) =>{
         render("login.eta", {errors: errors});  
     }else{
         const passwordDB = user[0].password;
-
         const passMatch = await bcrypt.compare(password, passwordDB);
+        
         if(!passMatch){
             render("login.eta", {errors: errors});
         }
         else{
-            state.session.set("user", user[0]);
+            await state.session.set("user", user[0]);
+            await state.session.set("sessionExpire", new Date().getTime()+5000);
             response.redirect("/topics");
         }
     }
@@ -33,6 +45,4 @@ const postLoginForm = async ({render, response, request, state}) =>{
 
 
 
-
-
-export {showLoginForm, postLoginForm };
+export {showLoginForm, postLoginForm , postUserLogout};

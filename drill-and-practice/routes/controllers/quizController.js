@@ -7,14 +7,12 @@ import * as questionAOService from "../../services/questionAnswerOptionsService.
 
 
 
-const showQuiz = async ({ render, state}) => {
-  
-
+const showQuiz = async ({ render }) => {
   const topics = {topics: await topicsService.getTopics()};
   render("quiz.eta", topics);
 };
 
-const showQuizRandQuestion = async ({ render, response, params , state}) => {
+const showQuizRandQuestion = async ({ render, params}) => {
   const questionID = params.qID;
   const question = await questionsService.getQuestionByID(questionID);
   const questionAOs = await questionAOService.getQuestionAOsByID(questionID);
@@ -32,7 +30,7 @@ const showIncorrectPage = async ({render, params}) =>{
   render("quizIncorrect.eta", {topicID: params.id, correct_option_text: questionAOText});
 };
 
-const quizRandTopicQuestionGet = async ({render,  response, request, params ,state}) =>{
+const quizRandTopicQuestionGet = async ({response, params }) =>{
   const topicID = params.id;
   const randomQuestion = await quizService.getRandQuestionByTopicID(topicID);
   if(randomQuestion.length === 0){
@@ -44,18 +42,20 @@ const quizRandTopicQuestionGet = async ({render,  response, request, params ,sta
   }
 };
 
-const quizUserAnswer = async ({render,  response, request, params ,state, user}) =>{
-  const topicID = params.id;
-  const questionID = params.qID;
-  const questionAO_ID = params.oID;
+const quizUserAnswer = async ({ response, params, user}) =>{
+  if(user){
+    const topicID = params.id;
+    const questionID = params.qID;
+    const questionAO_ID = params.oID;
 
-  await quizService.addUserAnswer(user.id, questionID, questionAO_ID);
-  const isCorrect = await quizService.getAnswerTFValue(questionAO_ID, questionID);
+    await quizService.addUserAnswer(user.id, questionID, questionAO_ID);
+    const isCorrect = await quizService.getAnswerTFValue(questionAO_ID, questionID);
 
-  if(isCorrect){
-    response.redirect(`/quiz/${topicID}/questions/${questionID}/correct`);
-  }else{
-    response.redirect(`/quiz/${topicID}/questions/${questionID}/incorrect`);
+    if(isCorrect){
+      response.redirect(`/quiz/${topicID}/questions/${questionID}/correct`);
+    }else{
+      response.redirect(`/quiz/${topicID}/questions/${questionID}/incorrect`);
+    }
   }
 };
 
