@@ -18,7 +18,6 @@
 //         await expect(page).toHaveTitle("Topics Create");
 //     }
 
-
 //     for (let i = 0; i < 5; i++){
 //         //try to delete topic
 //         await page.locator("button.btn.btn-danger").nth(0).click();
@@ -28,8 +27,6 @@
 //     await page.locator('h3 a').first().click();
 //     await expect(page).toHaveTitle("Questions Create");
 // });
-
-
 
 // test("Questions Create page has expected admin add and delete functionality", async ({ page }) => {
 //     await page.locator('h3 a').first().click();
@@ -54,8 +51,6 @@
 //      await expect(page).toHaveTitle("Question Answer Options Create");
 // });
 
-
-
 // test("Question Answer Option Create page has expected admin add and delete functionality", async ({ page }) => {
 //     await page.locator('h3 a').first().click();
 //     await expect(page).toHaveTitle("Questions Create");
@@ -77,7 +72,7 @@
 //     //try to delete question while answer options exist
 //     await page.locator("button.btn.btn-danger:has-text('Delete question')").click();
 //     await expect(page).toHaveTitle("Questions Create");
-   
+
 //     //try to delete topic while questions exist at topic/:id
 //     await page.locator("button.btn.btn-danger:has-text('Delete topic')").click();
 //     await expect(page).toHaveTitle("Topics Create");

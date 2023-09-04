@@ -1,12 +1,11 @@
 const { test, expect } = require("@playwright/test");
-const {userLogin} = require("../utils/testUtils.js");
+const { userLogin } = require("../utils/testUtils.js");
 //test for user
 
-
-test.beforeEach(async ({page}) => {
-    await userLogin({page});
-    //upon succesful login user is automatically redirected to /topics
-    await expect(page).toHaveTitle("Topics Create");
+test.beforeEach(async ({ page }) => {
+  await userLogin({ page });
+  //upon succesful login user is automatically redirected to /topics
+  await expect(page).toHaveTitle("Topics Create");
 });
 
 // test("Topics Create page does not allow user to create nor delete topics, only click links", async ({ page }) => {
@@ -15,13 +14,10 @@ test.beforeEach(async ({page}) => {
 //     await expect(await page.locator("button.btn.btn-primary").count()).toBe(0);
 //     await expect(await page.locator("button.btn.btn-danger").count()).toBe(0);
 
-
 //     //test if a link works
 //      await page.locator('h3 a').first().click();
 //      await expect(page).toHaveTitle("Questions Create");
 // });
-
-
 
 // test("Questions Create page allows user only to add questions", async ({ page }) => {
 //     await page.locator('h3 a').first().click();
@@ -43,8 +39,6 @@ test.beforeEach(async ({page}) => {
 //      await page.locator('h3 a').first().click();
 //      await expect(page).toHaveTitle("Question Answer Options Create");
 // });
-
-
 
 // test("Question Answer Options Create page has expected user add and delete functionality", async ({ page }) => {
 //     await page.locator('h3 a').first().click();
@@ -73,6 +67,6 @@ test.beforeEach(async ({page}) => {
 // });
 
 test("User can logout", async ({ page }) => {
-   await page.locator(`a >> text="Logout"`).click();
-   await expect(page).toHaveTitle("Login");
+  await page.locator(`a >> text="Logout"`).click();
+  await expect(page).toHaveTitle("Login");
 });

@@ -1,7 +1,7 @@
 .navbar-nav .nav-item:hover .nav-link {
-    color: #ffffff; /* Change text color to white on hover */
-    background-color: #4b4a4a; /* Change background color on hover */
-  }
+  color: #ffffff; /* Change text color to white on hover */
+  background-color: #4b4a4a; /* Change background color on hover */
+}
 
 .container-scrollable {
   max-height: 280px !important;

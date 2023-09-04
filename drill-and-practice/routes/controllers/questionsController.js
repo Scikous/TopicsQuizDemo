@@ -1,10 +1,9 @@
-import * as userService from "../../services/userService.js";
 import * as topicsService from "../../services/topicsService.js";
 import { validasaur } from "../../deps.js";
 import * as questionsService from "../../services/questionsService.js";
 import * as validateService from "../../services/validateService.js";
 
-const getData = async(params, request) => {
+const getData = async (params, request) => {
   const topicID = Number(params.id);
 
   const data = {
@@ -13,9 +12,9 @@ const getData = async(params, request) => {
     questions: await questionsService.getQuestionsByTopicID(topicID),
     question_text: "",
     errors: {},
-  }
+  };
 
-  if(request){
+  if (request) {
     const body = request.body();
     const formParams = await body.value;
     data.question_text = formParams.get("question_text");
@@ -28,34 +27,47 @@ const showTopicQuestions = async ({ render, request, params, state }) => {
   render("questions.eta", questionData);
 };
 
-const postAddQuestionForm = async({response, request, render, params, user}) =>{
-  if(user){
+const postAddQuestionForm = async ({response, request, render, params, user,
+}) => {
+  if (user) {
     const questionData = await getData(params, request);
-    
-    let [passes, errors] = await validasaur.validate({question_text: questionData.question_text}, {question_text: [validasaur.minLength(1),validasaur.required]});
-    
-    if(await validateService.questionExistsByName(questionData.question_text, questionData.topicID)){
-      errors.question = {Exists: "Question exists already"};
+
+    let [passes, errors] = await validasaur.validate(
+      { question_text: questionData.question_text },
+      { question_text: [validasaur.minLength(1), validasaur.required] },
+    );
+
+    if (
+      await validateService.questionExistsByName(
+        questionData.question_text,
+        questionData.topicID,
+      )
+    ) {
+      errors.question = { Exists: "Question exists already" };
       passes = false;
     }
 
-    if(!passes){
+    if (!passes) {
       questionData.errors = errors;
       render("questions.eta", questionData);
-    }else{
-      await questionsService.addQuestion(user.id, questionData.topicID, questionData.question_text);
+    } else {
+      await questionsService.addQuestion(
+        user.id,
+        questionData.topicID,
+        questionData.question_text,
+      );
       response.redirect(`/topics/${questionData.topicID}`);
     }
   }
 };
 
-const postDeleteQuestionForm = async ({response, params,user}) =>{
-  if(user){
+const postDeleteQuestionForm = async ({ response, params, user }) => {
+  if (user) {
     const topicID = params.id;
-    const questionID= params.qID;
+    const questionID = params.qID;
     await questionsService.deleteQuestionByID(questionID, user.id, topicID);
     response.redirect(`/topics/${topicID}`);
   }
 };
 
-export {postAddQuestionForm, showTopicQuestions, postDeleteQuestionForm};
+export { postAddQuestionForm, showTopicQuestions, postDeleteQuestionForm };
