@@ -22,4 +22,9 @@ const getTopicNameByID = async (topicID) => {
   }
 };
 
-export { addTopic, deleteTopicByID, getTopics, getTopicNameByID };
+export {
+  addTopic,
+  deleteTopicByID,
+  getTopics,
+  getTopicNameByID,
+};

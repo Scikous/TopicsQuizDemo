@@ -15,8 +15,9 @@
       const sessionStatusMonitor = async () => {
         const sessionStatus = await fetch("/api/logout");
         const sessionStatusJSON = await sessionStatus.json();
-        const sessionCheckInterval = 15 * 60 * 1000 //check if user idle status every 15 minutes
         if(sessionStatusJSON.user !== "null"){//only logged in users need to be checked
+          const sessionCheckInterval = 15 * 60 * 1000 //check if user idle status every 15 minutes
+          
           const interval = setInterval(async () => {
             const sessionStatus = await fetch("/api/logout");
             const sessionStatusJSON = await sessionStatus.json();
@@ -30,7 +31,7 @@
       };
       sessionStatusMonitor();
     </script>
-    <%~ includeFile("./partials/navbarPartial.eta", {user: it.user}) %>
+    <%~ includeFile("../partials/navbarPartial.eta", {user: it.user}) %>
     <div class="d-flex align-items-center justify-content-center min-vh-100">
             <%~ it.body %>
     </div>

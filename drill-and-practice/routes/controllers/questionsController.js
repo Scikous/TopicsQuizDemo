@@ -15,7 +15,7 @@ const getData = async (params, request) => {
   };
 
   if (request) {
-    const body = request.body();
+    const body = request.body({ type: "form" });
     const formParams = await body.value;
     data.question_text = formParams.get("question_text");
   }
@@ -24,7 +24,7 @@ const getData = async (params, request) => {
 
 const showTopicQuestions = async ({ render, request, params, state }) => {
   const questionData = await getData(params);
-  render("questions.eta", questionData);
+  render("creation/questions.eta", questionData);
 };
 
 const postAddQuestionForm = async ({response, request, render, params, user,
@@ -32,32 +32,23 @@ const postAddQuestionForm = async ({response, request, render, params, user,
   if (user) {
     const questionData = await getData(params, request);
 
-    let [passes, errors] = await validasaur.validate(
-      { question_text: questionData.question_text },
-      { question_text: [validasaur.minLength(1), validasaur.required] },
-    );
+    let [passes, errors] = await validasaur.validate({ question_text: questionData.question_text }, { question_text: [validasaur.minLength(1), validasaur.required] });
 
-    if (
-      await validateService.questionExistsByName(
-        questionData.question_text,
-        questionData.topicID,
-      )
-    ) {
+    if (await validateService.questionExistsByName(questionData.question_text, questionData.topicID)) {
       errors.question = { Exists: "Question exists already" };
       passes = false;
     }
 
     if (!passes) {
       questionData.errors = errors;
-      render("questions.eta", questionData);
+      response.status = 400;
+      render("creation/questions.eta", questionData);
     } else {
-      await questionsService.addQuestion(
-        user.id,
-        questionData.topicID,
-        questionData.question_text,
-      );
+      await questionsService.addQuestion(user.id, questionData.topicID, questionData.question_text);
       response.redirect(`/topics/${questionData.topicID}`);
     }
+  }else{
+    response.status = 401;
   }
 };
 
@@ -67,7 +58,14 @@ const postDeleteQuestionForm = async ({ response, params, user }) => {
     const questionID = params.qID;
     await questionsService.deleteQuestionByID(questionID, user.id, topicID);
     response.redirect(`/topics/${topicID}`);
+  }else{
+    response.status = 401;
+
   }
 };
 
-export { postAddQuestionForm, showTopicQuestions, postDeleteQuestionForm };
+export {
+  postAddQuestionForm,
+  showTopicQuestions,
+  postDeleteQuestionForm,
+};

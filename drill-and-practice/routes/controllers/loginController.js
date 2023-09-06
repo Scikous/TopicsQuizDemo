@@ -2,7 +2,7 @@ import * as userService from "../../services/userService.js";
 import { bcrypt } from "../../deps.js";
 
 const showLoginForm = async ({ render }) => {
-  render("login.eta");
+  render("auth/login.eta");
 };
 
 const postLoginForm = async ({ render, response, request, state }) => {
@@ -18,17 +18,19 @@ const postLoginForm = async ({ render, response, request, state }) => {
 
   const user = await userService.getUserByEmail(email);
   if (user.length === 0) {
-    render("login.eta", { errors: errors });
+    response.status = 400;
+    render("auth/login.eta", { errors: errors });
   } else {
     const passwordDB = user[0].password;
     const passMatch = await bcrypt.compare(password, passwordDB);
 
     if (!passMatch) {
-      render("login.eta", { errors: errors });
+        response.status = 400;
+        render("auth/login.eta", { errors: errors });
     } else {
-      await state.session.set("user", user[0]);
-      await state.session.set("sessionExpire", new Date().getTime() + 5000);
-      response.redirect("/topics");
+        await state.session.set("user", user[0]);
+        await state.session.set("sessionExpire", new Date().getTime() + 5000);
+        response.redirect("/topics");
     }
   }
 };
@@ -38,7 +40,13 @@ const postUserLogout = async ({ response, user, state }) => {
     await state.session.set("user", null);
     await state.session.set("sessionExpire", null);
     response.redirect("/auth/login");
+  }else{
+    response.status = 401;
   }
 };
 
-export { showLoginForm, postLoginForm, postUserLogout };
+export {
+  showLoginForm,
+  postLoginForm,
+  postUserLogout,
+};

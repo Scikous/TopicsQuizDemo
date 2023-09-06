@@ -1,4 +1,4 @@
-<% layout("./layouts/layout.eta") %>
+<% layout("../layouts/layout.eta") %>
 
 <title>Topics Create</title>
 
@@ -6,7 +6,7 @@
 <div class="col-sm-0 text-center">
     <h1>Topics!</h1>
     <% if (it.user && it.user.admin) { %>
-        <%~ includeFile("./partials/errorsPartial.eta", {errors: it.errors}) %>
+        <%~ includeFile("../partials/errorsPartial.eta", {errors: it.errors}) %>
         
         <form method="POST" action="/topics">
             <div class="form-group">

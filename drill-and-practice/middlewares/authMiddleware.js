@@ -8,8 +8,8 @@ const authMiddleware = async (context, next) => {
   }
   if (
     user &&
-    (context.request.url.pathname === "/auth/login" ||
-      context.request.url.pathname === "/auth/register")
+    (context.request.url.pathname === "/auth/login"
+     || context.request.url.pathname === "/auth/register")
   ) {
     context.response.redirect("/");
   }

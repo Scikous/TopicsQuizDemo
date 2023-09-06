@@ -1,6 +1,7 @@
 import { sql } from "../database/database.js";
 
 const getTopicsCount = async () => {
+  //console.log(sql);
   const rows = await sql`SELECT COUNT(*) FROM topics`;
   const topicsCount = rows[0].count;
   return topicsCount;
@@ -9,6 +10,7 @@ const getTopicsCount = async () => {
 const getQuestionsCount = async () => {
   const rows = await sql`SELECT COUNT(*) FROM questions`;
   const questionsCount = rows[0].count;
+  console.log(rows);
   return questionsCount;
 };
 const getAnswersCount = async () => {
@@ -17,4 +19,8 @@ const getAnswersCount = async () => {
   return answersCount;
 };
 
-export { getTopicsCount, getQuestionsCount, getAnswersCount };
+export {
+  getTopicsCount,
+  getQuestionsCount,
+  getAnswersCount,
+};

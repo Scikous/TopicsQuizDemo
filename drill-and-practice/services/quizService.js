@@ -24,8 +24,7 @@ const addUserAnswer = async (userID, questionID, questionAO_ID) => {
 };
 
 const getAnswerTFValue = async (questionAO_ID, questionID) => {
-  const answer =
-    await sql`SELECT is_correct FROM question_answer_options WHERE id=${questionAO_ID} AND question_id=${questionID}`;
+  const answer = await sql`SELECT is_correct FROM question_answer_options WHERE id=${questionAO_ID} AND question_id=${questionID}`;
   return answer[0].is_correct;
 };
 

@@ -4,11 +4,11 @@ import { isSame } from "../../utils/validators/isSame.ts";
 import * as validateService from "../../services/validateService.js";
 
 const showRegistrationForm = async ({ render }) => {
-  render("registration.eta");
+  render("auth/registration.eta");
 };
 
 const showRegistrationSuccess = async ({ response, render }) => {
-  render("registrationSuccess.eta");
+  render("auth/registrationSuccess.eta");
 };
 
 const postRegistrationForm = async ({ render, response, request }) => {
@@ -31,6 +31,7 @@ const postRegistrationForm = async ({ render, response, request }) => {
       validasaur.required,
     ],
   };
+
   const validationErrorMsgs = {
     messages: {
       "email.lengthBetween": "email must be between 4-255 characters long",
@@ -39,13 +40,10 @@ const postRegistrationForm = async ({ render, response, request }) => {
       "password.required": "password is required",
       isSame: "password and verification do not match",
     },
-  }; //helpst to avoid user from figuring out if email exists
+  }; 
 
   let [passes, errors] = await validasaur.validate(
-    { email: email, password: password },
-    validationRules,
-    validationErrorMsgs,
-  );
+    { email: email, password: password }, validationRules, validationErrorMsgs);
 
   if (await validateService.userExists(email)) {
     errors.email = { userExists: "User exists already" };
@@ -53,7 +51,8 @@ const postRegistrationForm = async ({ render, response, request }) => {
   }
 
   if (!passes) {
-    render("registration.eta", { email: email, errors: errors });
+    response.status = 400;
+    render("auth/registration.eta", { email: email, errors: errors });
   } else {
     const encryptedPass = await bcrypt.hash(password);
     await userService.addUser(email, encryptedPass);
@@ -61,4 +60,8 @@ const postRegistrationForm = async ({ render, response, request }) => {
   }
 };
 
-export { showRegistrationForm, postRegistrationForm, showRegistrationSuccess };
+export { 
+  showRegistrationForm,
+  postRegistrationForm,
+  showRegistrationSuccess,
+};

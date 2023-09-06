@@ -12,4 +12,8 @@ const deleteQuestionAO = async (questionAO_ID, questionID) => {
   await sql`DELETE FROM question_answer_options WHERE id=${questionAO_ID} AND question_id=${questionID}`;
 };
 
-export { addQuestionAO, getQuestionAOsByID, deleteQuestionAO };
+export {
+  addQuestionAO,
+  getQuestionAOsByID,
+  deleteQuestionAO,
+};

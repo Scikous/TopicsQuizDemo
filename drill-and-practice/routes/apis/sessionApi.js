@@ -13,7 +13,9 @@ const sessionIdleCheck = async ({ response, state, user }) => {
     } else {
       response.body = { expired: "false" };
     }
+    response.status = 200;
   } else {
+    response.status = 401;
     response.body = { user: "null" };
     console.log("No user found");
   }

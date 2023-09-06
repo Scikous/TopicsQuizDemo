@@ -17,4 +17,9 @@ const deleteQuestionByID = async (questionID, userID, topicID) => {
   await sql`DELETE FROM questions WHERE id=${questionID} AND user_id=${userID} AND topic_id=${topicID}`;
 };
 
-export { addQuestion, getQuestionsByTopicID, deleteQuestionByID, getQuestionByID, };
+export {
+  addQuestion,
+  getQuestionsByTopicID,
+  deleteQuestionByID,
+  getQuestionByID,
+};

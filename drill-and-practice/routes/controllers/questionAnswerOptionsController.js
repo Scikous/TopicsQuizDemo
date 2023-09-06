@@ -20,7 +20,7 @@ const getData = async (params, request) => {
   };
 
   if (request) {
-    const body = request.body();
+    const body = request.body({ type: "form" });
     const formParams = await body.value;
     data.option_text = formParams.get("option_text");
     if (formParams.get("is_correct")) {
@@ -32,36 +32,22 @@ const getData = async (params, request) => {
 
 const showQuestion = async ({ render, params }) => {
   const questionAOData = await getData(params);
-  render("questionAnswerOptions.eta", questionAOData);
+  render("creation/questionAnswerOptions.eta", questionAOData);
 };
 
-const postAddQuestionAOForm = async ({
-  response,
-  request,
-  render,
-  params,
-  user,
-}) => {
+const postAddQuestionAOForm = async ({response, request, render, params, user}) => {
   if (user) {
     const questionAOData = await getData(params, request);
 
-    let [passes, errors] = await validasaur.validate(
-      { option_text: questionAOData.option_text },
-      { option_text: [validasaur.minLength(1), validasaur.required] },
-    );
-
-    if (
-      await validateService.questionAOExistsByName(
-        questionAOData.option_text,
-        questionAOData.questionID,
-      )
-    ) {
+    let [passes, errors] = await validasaur.validate({ option_text: questionAOData.option_text }, { option_text: [validasaur.minLength(1), validasaur.required] });
+    if (await validateService.questionAOExistsByName(questionAOData.option_text,questionAOData.questionID)) {
       errors.questionAO = { Exists: "Question answer option exists already" };
       passes = false;
     }
 
     if (!passes) {
       questionAOData.errors = errors; //AO=Answer Option
+      response.status = 400;
       render("questionAnswerOptions.eta", questionAOData);
     } else {
       await questionAOService.addQuestionAO(
@@ -69,32 +55,27 @@ const postAddQuestionAOForm = async ({
         questionAOData.option_text,
         questionAOData.is_correct,
       );
-      response.redirect(
-        `/topics/${questionAOData.topicID}/questions/${questionAOData.questionID}`,
-      );
+      response.redirect(`/topics/${questionAOData.topicID}/questions/${questionAOData.questionID}`);
     }
+  }else{
+    response.status = 401;
   }
 };
 
-const postDeleteQuestionAOForm = async ({
-  response,
-  params,
-  request,
-  user,
-}) => {
+const postDeleteQuestionAOForm = async ({response, params, request, user,}) => {
   if (user) {
     const questionAO_ID = Number(params.oID);
-
     const questionAOData = await getData(params, request);
 
-    await questionAOService.deleteQuestionAO(
-      questionAO_ID,
-      questionAOData.questionID,
-    );
-    response.redirect(
-      `/topics/${questionAOData.topicID}/questions/${questionAOData.questionID}`,
-    );
+    await questionAOService.deleteQuestionAO(questionAO_ID, questionAOData.questionID);
+    response.redirect(`/topics/${questionAOData.topicID}/questions/${questionAOData.questionID}`);
+  }else{
+    response.status = 401;
   }
 };
 
-export { showQuestion, postAddQuestionAOForm, postDeleteQuestionAOForm };
+export {
+  showQuestion,
+  postAddQuestionAOForm,
+  postDeleteQuestionAOForm,
+};

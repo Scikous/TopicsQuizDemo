@@ -1,4 +1,4 @@
-<% layout("./layouts/layout.eta") %>
+<% layout("../layouts/layout.eta") %>
 
 <title>Questions Create</title>
 
@@ -8,7 +8,7 @@
         <h1><%= it.topic %></h1>
     </div>
    
-    <%~ includeFile("./partials/errorsPartial.eta", {errors: it.errors}) %>
+    <%~ includeFile("../partials/errorsPartial.eta", {errors: it.errors}) %>
 
     <form method="POST" action="/topics/<%= it.topicID %>/questions">
         <div class="form-group">
