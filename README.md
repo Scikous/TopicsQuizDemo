@@ -1,19 +1,37 @@
 
+# Prequisites
+
+## Create user and database
+### Local (non-docker)
+Create the database and user, and set permissions with the following: 
+
+User:
+``` CREATE USER "usernameHost" WITH PASSWORD 'passwordHost'```
+
+Database:
+``` CREATE DATABASE "databaseHost" WITH OWNER="usernameHost"```
+
+Permissions:
+```GRANT ALL PRIVILEGES ON DATABASE "databaseHost" TO "usernameHost"```
+
+Populating:
+```psql -U usernameHost -d databaseHost  -a -f ./flyway/sql/V1___initial_schema.sql```
+
 # Usage (in order)
-the default address is: **localhost:7777**
+> :information_source: The default address and its associated port is: **localhost:7777**
 
 ## Environment
-!The environment needs to be set. 
+> :warning: **Warning**:The environment needs to be set. 
 
-There are two environments: **main** and **test**, run whichever one you wish to be working on.
+There are three environments: **main** and **test** are for docker based runs and **local** is for non-docker, run whichever one you wish to be working on.
 
 You can set the default environment by using:
-```export ENVIRONMENT=<main/test>```
+```export ENVIRONMENT=<main/test/local>```
 
-If you do not do this, you will need to set everytime you start/build the container.
+If this is not done, then this will need to set everytime the container is started/built.
 
 ## Containers
-NOTE: docker-compose.yml will create a local save for **test** and **main**, when they are built to avoid losing the database data when switching between the two. 
+:information_source: **docker-compose.yml** will create a local save for **test** and **main**.This is done in order to avoid losing the data in the database when switching between the environments. 
 
 If you have set the default environment already, then you can use (--build if not already built or if needed):
 ```docker-compose up (--build)```
@@ -27,34 +45,36 @@ And then for downing use:
 ## Credentials
 
 ### Admin account credentials
-Username: `admin@admin.com`
+Email Address: `admin@admin.com`
 Password: `123456`
 
 ### User account credentials
-Username: `user@user.com`
+Email Address: `user@user.com`
 Password: `pass`
 
-## Testing
+# Testing
 
 ## Automated tests
 
 ### Deno tests
-For running the tests located in ```./drill-and-practice/tests/``` use:
+For running the tests located in ```./drill-and-practice/tests/```
+
+use the following:
 ```docker-compose run --rm drill-and-practice deno test --allow-all```
 
 
 ### Playwright (end-to-end)
 
-`docker-compose run --entrypoint=npx e2e-playwright playwright test && docker-compose rm -sf`
+```docker-compose run --entrypoint=npx e2e-playwright playwright test && docker-compose rm -sf```
 
 
 ## For manual testing
 ### Terminal
 
-NOTE: It is recommended to use cookies to be able to easily do different actions.
+:information_source: It is recommended to use cookies for ease-of-use. Also, email and password can be changed.
 
 #### Login
-```curl -X POST -c cookies.txt -d "email=<email address>&password=<password>" localhost:7777/auth/login```
+```curl -X POST -c cookies.txt -d "email=admin@admin.com&password=123456" localhost:7777/auth/login```
 
 #### Creation and Deletion
 ```curl -X POST -b cookies.txt localhost:7777/topcis/<path>```
@@ -63,10 +83,11 @@ Example:
 ```curl -X POST -b cookies.txt localhost:7777/topics/1/questions/2/options/1/delete ```
 
 #### Quiz
+Under construction
 ```curl -b cookies.txt localhost:7777/quiz/:id```
 
 ### API
-qID and oID = some number that exists within the database.
+> :information_source: qID and oID = some number that exists within the database.
 
 ```curl localhost:7777/api/questions/random```
 
@@ -83,7 +104,7 @@ Will return:
 }
 ```
 
-
+>
 ```curl -v -X POST -d '{"questionId":<qID>,"optionId":<oID>}' localhost:7777/api/questions/answer```
 
 Will return:

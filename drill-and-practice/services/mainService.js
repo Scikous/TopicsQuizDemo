@@ -1,7 +1,7 @@
 import { sql } from "../database/database.js";
 
 const getTopicsCount = async () => {
-  //console.log(sql);
+  console.log(sql);
   const rows = await sql`SELECT COUNT(*) FROM topics`;
   const topicsCount = rows[0].count;
   return topicsCount;
