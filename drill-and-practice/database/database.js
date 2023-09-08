@@ -5,7 +5,6 @@ let sql;
 if (Deno.env.get("DATABASE_URL")) {
   sql = postgres(Deno.env.get("DATABASE_URL"));
 } else {
-  console.log(Deno.env.get("ENVIRONMENT"))
   if(Deno.env.get("ENVIRONMENT") === "local"){
     sql = postgres(config.database);
   }else{

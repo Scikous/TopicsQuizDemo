@@ -34,11 +34,12 @@ const postRegistrationForm = async ({ render, response, request }) => {
 
   const validationErrorMsgs = {
     messages: {
-      "email.lengthBetween": "email must be between 4-255 characters long",
-      "email.required": "email is required",
-      "password.lengthBetween": "password must be between 4-60 characters long",
-      "password.required": "password is required",
-      isSame: "password and verification do not match",
+      "email.lengthBetween": "Email must be between 4-255 characters long",
+      "email.required": "Email is required",
+      "email.isEmail": "Email is invalid",
+      "password.lengthBetween": "Password must be between 4-60 characters long",
+      "password.required": "Password is required",
+      isSame: "Password and verification do not match",
     },
   }; 
 

@@ -48,7 +48,7 @@ const postAddQuestionAOForm = async ({response, request, render, params, user}) 
     if (!passes) {
       questionAOData.errors = errors; //AO=Answer Option
       response.status = 400;
-      render("questionAnswerOptions.eta", questionAOData);
+      render("creation/questionAnswerOptions.eta", questionAOData);
     } else {
       await questionAOService.addQuestionAO(
         questionAOData.questionID,

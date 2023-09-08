@@ -16,9 +16,20 @@ Permissions:
 
 Populating:
 ```psql -U usernameHost -d databaseHost  -a -f ./flyway/sql/V1___initial_schema.sql```
-
 # Usage (in order)
 > :information_source: The default address and its associated port is: **localhost:7777**
+
+Useful commands (either main or test):
+
+Access database while running in docker
+```
+docker exec -it database-server-test psql -U username-test database-test
+```
+
+Clear out database table(s):
+```
+TRUNCATE <table> RESTART IDENTITY CASCADE;
+```
 
 ## Environment
 > :warning: **Warning**:The environment needs to be set. 

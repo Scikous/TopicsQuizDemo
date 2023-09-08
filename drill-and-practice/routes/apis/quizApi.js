@@ -7,6 +7,7 @@ const quizRandQuestionGet = async ({ response }) => {
   response.status = 200;
   response.headers.set("Content-Type", "application/json"); // Set the correct Content-Type header
   response.body = randomQuestionJSON;
+
 };
 
 const quizPostQuestionAnswer = async ({ response, request }) => {
@@ -20,7 +21,7 @@ const quizPostQuestionAnswer = async ({ response, request }) => {
     const isCorrect = await quizService.getAnswerTFValue(optionID, questionID);
     response.status = 200;
     response.headers.set("Content-Type", "application/json"); // Set the correct Content-Type header
-    response.body = { correct: isCorrect };
+    response.body = { "correct": isCorrect };
   } else {
     response.status = 400;
     response.body = "questionId and optionId were not received";
