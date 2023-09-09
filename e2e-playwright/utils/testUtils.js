@@ -28,4 +28,15 @@ const elementsGetter = async ({ page }, tag) => {
   return elements;
 };
 
-export { adminLogin, userLogin, elementsGetter };
+const questionsPageNav = async ({page}) =>{
+  await page.locator('h3 a').first().click();
+  await expect(page).toHaveTitle("Questions Create");
+}
+
+const questionAnswerOptionsPageNav = async ({page}) =>{
+    await questionsPageNav({page});
+    await page.locator('h3 a').first().click();
+    await expect(page).toHaveTitle("Question Answer Options Create");
+}
+
+export { adminLogin, userLogin, questionAnswerOptionsPageNav, questionsPageNav, elementsGetter };

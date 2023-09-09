@@ -1,5 +1,4 @@
 import { configure, renderFile } from "../deps.js";
-
 const renderMiddleware = async (context, next) => {
   configure({
     views: `${Deno.cwd()}/views/pages/`,

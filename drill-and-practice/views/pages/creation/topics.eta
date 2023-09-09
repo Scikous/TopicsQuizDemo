@@ -11,7 +11,7 @@
         <form method="POST" action="/topics">
             <div class="form-group">
                 <label for="topicTitle">Topic title:</label>
-                <input type="text" class="form-control" id="topicTitle" name="name" value="<%= it.name ? it.name: "" %>" required />
+                <input type="text" class="form-control" id="topicTitle" name="name" value="<%= it.name ? it.name: "" %>"/>
             </div>
             <button type="submit" class="btn btn-primary">Add</button>
         </form>
@@ -21,17 +21,17 @@
 
 <div class="col-sm-0">
     <div class="container-scrollable">
-            <ul>
-                <% it.topics.forEach((topic) => {%>
-                    <li>
-                        <h3><a href="topics/<%= topic.id %>"> <%= topic.name %></a></h3>
-                    </li>
-                    <% if (it.user && it.user.admin) { %>
-                        <form method="POST" action="/topics/<%= topic.id %>/delete">
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    <% } %>
-                <%}); %>
-            </ul>
+        <ul>
+            <% it.topics.forEach((topic) => {%>
+                <li>
+                    <h3><a href="topics/<%= topic.id %>"> <%= topic.name %></a></h3>
+                </li>
+                <% if (it.user && it.user.admin) { %>
+                    <form method="POST" action="/topics/<%= topic.id %>/delete">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                <% } %>
+            <%}); %>
+        </ul>
     </div>
 </div>

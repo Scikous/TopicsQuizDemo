@@ -2,7 +2,7 @@
 <ul>
     <% Object.keys(it.errors).forEach((attribute) => { %>
         <% Object.values(it.errors[attribute]).forEach((err) => { %>
-            <li><%= err %></li>
+            <li><p><%= err %></p></li>
         <% }); %>
     <% }); %>
 </ul>

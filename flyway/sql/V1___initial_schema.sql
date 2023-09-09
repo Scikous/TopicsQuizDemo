@@ -41,3 +41,9 @@ INSERT INTO users (email, password, admin)
 
 INSERT INTO topics (user_id, name)
   VALUES ((SELECT id FROM users WHERE email = 'admin@admin.com'), 'Finnish language');
+INSERT INTO questions (user_id, topic_id, question_text)
+  VALUES ((SELECT id FROM users WHERE email = 'admin@admin.com'), 1, 'You can create made up words and still be understood fine?');
+INSERT INTO question_answer_options (question_id, option_text, is_correct)
+  VALUES (1,'Absolutely', TRUE);
+INSERT INTO question_answer_options (question_id, option_text, is_correct)
+  VALUES (1,'You cannot',FALSE);

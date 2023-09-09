@@ -1,6 +1,6 @@
 const { test, expect } = require("@playwright/test");
 const { adminLogin, userLogin } = require("../utils/testUtils.js");
-//test for user
+//tests for quiz
 
 test.beforeEach(async ({ page }) => {
   await adminLogin({ page });
@@ -51,7 +51,6 @@ test("Quiz test", async ({ page }) => {
     "button.btn.btn-primary:has-text('Choose')",
   );
   if ((await chooseBtn.count()) >= 1) {
-    console.log("Found orrect!");
     await page
       .locator("button.btn.btn-primary:has-text('Choose')")
       .nth(choiceNum)
