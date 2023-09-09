@@ -2,7 +2,7 @@
 
 <title>Topics Quiz</title>
 
-<div class="container">
+<div class="container text-center">
     <div class="row">
         <div class="col-sm-6">
             <h1>Topics Quiz!</h1>
@@ -27,7 +27,9 @@
                         <% }); %>
                     </ol>
                 </div>
-            <% } %>
+            <% }else{%>
+              <h3>Be the first one on the leaderboard</h3>
+            <%}%>
         </div>
     </div>
 </div>
