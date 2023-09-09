@@ -5,7 +5,9 @@ const showMain = async ({ render }) => {
     topicsCount: await mainService.getTopicsCount(),
     questionsCount: await mainService.getQuestionsCount(),
     answersCount: await mainService.getAnswersCount(),
+    leaderboard: await mainService.getLeaderboard(),
   };
+  console.log(statsData.leaderboard)
   render("main.eta", statsData);
 };
 

@@ -2,21 +2,32 @@
 
 <title>Topics Quiz</title>
 
-<div class="col-sm-0">
-
-<h1>Topics Quiz!</h1>
-
-<p class="centered-text"> This is a web application where one can create questions for available topics, and answer questions in said topics as well. </p>
-
-
- <% if (it.topicsCount > 0) { %>
-    <h2> Number of topics: <%= it.topicsCount %></h2>
-    <h2> Number of questions: <%= it.questionsCount %></h2>
-    <h2> Number of answers: <%= it.answersCount %></h2>
-
-
-  <% } else {%>
-    <h2>No topics yet.</h2>
-    <% }%>
-
-  </div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <h1>Topics Quiz!</h1>
+            <h4>This is a web application where users can create questions for available topics, and answer questions in said topics as well.</h4>
+            <% if (it.topicsCount > 0) { %>
+                <h2>Number of topics: <%= it.topicsCount %></h2>
+                <h2>Number of questions: <%= it.questionsCount %></h2>
+                <h2>Number of answers: <%= it.answersCount %></h2>
+            <% } else { %>
+                <h2>No topics yet.</h2>
+            <% } %>
+        </div>
+        <div class="col-sm-6">
+            <h1>Leaderboard</h1>
+            <% if (it.answersCount > 0) { %>
+                <div class="container-scrollable">
+                    <ol style="font-size:32px;">
+                        <% it.leaderboard.forEach((user) => { %>
+                            <li>
+                                <h3><%= user.name %></h3>
+                            </li>
+                        <% }); %>
+                    </ol>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</div>
