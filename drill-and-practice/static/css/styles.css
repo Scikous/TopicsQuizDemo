@@ -1,3 +1,11 @@
+body{
+  color: #F0F0F0 !important;
+  background-color: #121212 !important;
+  font-family: 'Chewy', sans-serif  !important;
+}
+
+
+
 .navbar-nav .nav-item:hover .nav-link {
   color: #ffffff; /* Change text color to white on hover */
   background-color: #4b4a4a; /* Change background color on hover */
@@ -8,7 +16,6 @@
   max-width: 280px !important;
   overflow-y: auto !important;
   overflow-x: auto !important;
-  margin: 0 auto !important;
 }
 
 /* Style for the scrollbar */
