@@ -1,0 +1,6 @@
+# .gitattributes
+
+# Specify custom merge driver for specific files
+docker-compose.yml merge=ours
+project.env merge=ours
+
