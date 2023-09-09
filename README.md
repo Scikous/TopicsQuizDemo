@@ -157,7 +157,7 @@ curl -X POST -b cookies.txt localhost:7777/topics/1/questions/2/options/1/delete
 ```
 
 #### Quiz
-Under construction
+The command below is of format ```quiz/:id/questions/:qID/options/:oID```
 ```
 curl -v -X POST -b cookies.txt localhost:7777/quiz/1/questions/1/options/1
 ```

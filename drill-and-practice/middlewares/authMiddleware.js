@@ -22,6 +22,7 @@ const authMiddleware = async (context, next) => {
   ) {
     context.response.redirect("/auth/login");
   } else {
+    context.response.status = 200;
     await next();
   }
 };
