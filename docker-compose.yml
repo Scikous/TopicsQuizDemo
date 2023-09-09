@@ -17,13 +17,13 @@ services:
 
 
   database:
-    container_name: database-server
+    container_name: database-server-main
     image: postgres:14.1
     restart: "no"
     env_file:
       - project.env
     volumes:
-      -  ./databases/database-data:/var/lib/postgresql/data
+      -  ./databases/database-data-main:/var/lib/postgresql/data
 
   flyway:
     image: flyway/flyway:9.11.0-alpine
