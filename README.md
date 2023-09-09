@@ -32,29 +32,29 @@ TRUNCATE <table> RESTART IDENTITY CASCADE;
 ```
 
 ## Environment
-> :warning: **Warning**:The environment needs to be set. 
-
-There are three environments: **main** and **test** are for docker based runs and **local** is for non-docker, run whichever one you wish to be working on.
+The **local** environment setting is for non-docker based local running.
 
 You can set the default environment by using:
-```export ENVIRONMENT=<main/test/local>```
+```export ENVIRONMENT=local```
 
-If this is not done, then this will need to set everytime the container is started/built.
+If this is not done, then this will need to set everytime.
 
 ## Local
-Use the following in ```drill-and-practice``` (Assuming environment set to local):
+First start the postgresql service with:
+```(sudo) service postgresql start``` 
+
+Use one the following in ```drill-and-practice```
+
+(Assuming environment set to local):
 ```deno run --allow-all app-launch.js```
 Otherwise:
 ```ENVIRONMENT=local deno run --allow-all app-launch.js```
 
 ## Containers
-:information_source: **docker-compose.yml** will create a local save for **test** and **main**.This is done in order to avoid losing the data in the database when switching between the environments. 
+:information_source: **docker-compose.yml** will create a local save for the branch (can be commented out if need be). This is done in order to avoid losing the data in the database when bringing down the container. 
 
-If you have set the default environment already, then you can use (--build if not already built or if needed):
+(--build if not already built or if needed):
 ```docker-compose up (--build)```
-
-Otherwise you need to use:
-```ENVIRONMENT=<main/test> docker-compose up (--build)```
 
 And then for downing use:
 ```docker-compose down```
