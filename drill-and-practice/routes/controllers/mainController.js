@@ -7,7 +7,6 @@ const showMain = async ({ render }) => {
     answersCount: await mainService.getAnswersCount(),
     leaderboard: await mainService.getLeaderboard(),
   };
-  console.log(statsData.leaderboard)
   render("main.eta", statsData);
 };
 
