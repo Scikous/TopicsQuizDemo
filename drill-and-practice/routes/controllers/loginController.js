@@ -29,7 +29,7 @@ const postLoginForm = async ({ render, response, request, state }) => {
         render("auth/login.eta", { errors: errors });
     } else {
         await state.session.set("user", user[0]);
-        await state.session.set("sessionExpire", new Date().getTime() + 5000);
+        await state.session.set("sessionExpire", new Date().getTime() + 1000*15*60);
         response.redirect("/topics");
     }
   }

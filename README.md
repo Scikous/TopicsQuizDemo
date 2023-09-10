@@ -14,7 +14,8 @@ This is a web application for a quiz game, in which registered users can partici
     - [Playwright (end-to-end)](#playwright-end-to-end)
   - [Manual testing](#manual-testing)
   - [API](#api)
-# Prequisites
+  
+# Prerequisites
 ## Dependencies
 ```
 - postgresql
