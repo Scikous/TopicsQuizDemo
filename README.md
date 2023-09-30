@@ -2,7 +2,7 @@
 This is a web application for a quiz game, in which registered users can participate in, both by creating fun questions and answer options for the *numerous topics created by the admins.This web application that can be run locally with or without docker. Postgresql is mandatory though.
 
 ## Table of Contents
-- [Prequisites](#prequisites)
+- [Prerequisites](#prerequisites)
 - [Usage (in order)](#usage-in-order)
 - [Environment](#environment)
 - [Local](#local)
